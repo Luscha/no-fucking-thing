@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "private": true,
+  "scripts": {
+    "deploy:marketplace": "terrain deploy marketplace --signer=validator"
+  },
   "dependencies": {
     "@iboss/terrain": "0.0.8"
   },

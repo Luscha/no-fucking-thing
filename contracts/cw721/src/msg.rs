@@ -1,8 +1,7 @@
-use schemars::JsonSchema;
-use serde::{Deserialize, Serialize};
-
 use cosmwasm_std::Binary;
 use cw721::Expiration;
+use schemars::JsonSchema;
+use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
 pub struct InstantiateMsg {
@@ -22,7 +21,7 @@ pub struct InstantiateMsg {
 /// use other control logic in any contract that inherits this.
 #[derive(Serialize, Deserialize, Clone, PartialEq, JsonSchema, Debug)]
 #[serde(rename_all = "snake_case")]
-pub enum ExecuteMsg<T> {
+pub enum ExecuteMsg {
     /// Transfer is a base message to move a token to another account without triggering actions
     TransferNft { recipient: String, token_id: String },
     /// Send is a base message to transfer a token to a contract and trigger an action
@@ -51,24 +50,21 @@ pub enum ExecuteMsg<T> {
     RevokeAll { operator: String },
 
     /// Mint a new NFT, can only be called by the contract minter
-    Mint(MintMsg<T>),
-
-    /// Burn an NFT the sender has access to
-    Burn { token_id: String },
+    Mint(MintMsg),
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
-pub struct MintMsg<T> {
+pub struct MintMsg {
     /// Unique ID of the NFT
     pub token_id: String,
     /// The owner of the newly minter NFT
     pub owner: String,
-    /// Universal resource identifier for this NFT
-    /// Should point to a JSON file that conforms to the ERC721
-    /// Metadata JSON Schema
-    pub token_uri: Option<String>,
-    /// Any custom extension used by this contract
-    pub extension: T,
+    /// Identifies the asset to which this NFT represents
+    pub name: String,
+    /// Describes the asset to which this NFT represents (may be empty)
+    pub description: Option<String>,
+    /// A URI pointing to an image representing the asset
+    pub image: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
@@ -81,25 +77,9 @@ pub enum QueryMsg {
         /// unset or false will filter out expired approvals, you must set to true to see them
         include_expired: Option<bool>,
     },
-
-    /// Return operator that can access all of the owner's tokens.
-    /// Return type: `ApprovalResponse`
-    Approval {
-        token_id: String,
-        spender: String,
-        include_expired: Option<bool>,
-    },
-
-    /// Return approvals that a token has
-    /// Return type: `ApprovalsResponse`
-    Approvals {
-        token_id: String,
-        include_expired: Option<bool>,
-    },
-
     /// List all operators that can access all of the owner's tokens
-    /// Return type: `OperatorsResponse`
-    AllOperators {
+    /// Return type: `ApprovedForAllResponse`
+    ApprovedForAll {
         owner: String,
         /// unset or false will filter out expired items, you must set to true to see them
         include_expired: Option<bool>,

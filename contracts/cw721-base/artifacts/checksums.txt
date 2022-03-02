@@ -1,1 +1,0 @@
-a8e48264580efcd5254fe187e72a67535e883c5ad1e168ff598db53dacbb07fb  cw721_base.wasm

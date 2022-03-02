@@ -3,7 +3,7 @@
     "_base": {
       "store": {
         "fee": {
-          "gasLimit": 4000000,
+          "gasLimit": 2000000,
           "amount": {
             "uluna": 1000000
           }
@@ -17,11 +17,38 @@
           }
         },
         "instantiateMsg": {
-          "count": 0,
           "name": "test",
           "symbol": "TST",
           "minter": "terra1x46rqay4d3cssq8gxxvqz8xt6nwlz4td20k38v"
         }
+      }
+    },
+    "cw721": {
+      "store": {
+        "fee": {
+          "gasLimit": 4000000,
+          "amount": {
+            "uluna": 1000000
+          }
+        }
+      },
+      "instantiateMsg": {
+        "name": "test",
+        "symbol": "TST",
+        "minter": "terra1x46rqay4d3cssq8gxxvqz8xt6nwlz4td20k38v"
+      }
+    },
+    "marketplace": {
+      "store": {
+        "fee": {
+          "gasLimit": 4000000,
+          "amount": {
+            "uluna": 1000000
+          }
+        }
+      },
+      "instantiateMsg": {
+        "name": "marketplace-test"
       }
     }
   },

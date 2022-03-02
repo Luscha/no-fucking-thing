@@ -13,6 +13,9 @@ pub struct InstantiateMsg {
 pub enum ExecuteMsg {
     WithdrawNft { offering_id: String },
     Buy { msg: BuyNft },
+    // TODO: SECURITY use cw721 Approve msg instead of transfering the nft
+    // to allow the marketplace to transfer the nft once the sell is concluded
+    // in this way the user do not have to transfer the nft to the platform
     ReceiveNft(Cw721ReceiveMsg),
 }
 

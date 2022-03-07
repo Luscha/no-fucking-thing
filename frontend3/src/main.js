@@ -1,6 +1,8 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
+import { initController } from './chains/terra-controller';
+// import { getWalletController } from './chains/wallet-controller';
 
 // vue app
 const app = createApp(App);
@@ -20,6 +22,8 @@ app.use(VueClipboard, {
     autoSetContainer: true,
     appendToBody: true,
 })
+
+initController();  
 
 // template custom css
 import './assets/scss/bundles.scss'
@@ -210,6 +214,8 @@ app.component('NotificationSection', NotificationSection)
 app.component('SecuritySection', SecuritySection)
 app.component('SellBuy', SellBuy)
 app.component('ThemeSwitcher', ThemeSwitcher)
+
+// getWalletController().then(wp => app.provide('walletController', wp));
 
 // vue app
 app.use(router).mount('#app')

@@ -54,7 +54,7 @@
 import {
   WalletStatus,
 } from '@terra-money/wallet-controller';
-import { getController } from '../../controller';
+import { getController } from '../chains/terra-controller';
 import { combineLatest } from 'rxjs';
 
 let subscription = null;
@@ -96,6 +96,7 @@ export default {
             ? Array.from(_states.supportFeatures)
             : [];
         this.connected = _states.status === WalletStatus.WALLET_CONNECTED;
+        console.log(this.availableConnections)
       },
     )
   },

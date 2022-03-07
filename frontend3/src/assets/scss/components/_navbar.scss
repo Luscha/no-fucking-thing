@@ -287,9 +287,6 @@
             &-btns {
                 padding-top: 0rem;
             }
-            &.nav {
-                display: flex;
-            }
         }
     }
     .menu {
@@ -391,6 +388,7 @@
             }
         }
         &-btns {
+            float: right;
             padding-top: 0;
             padding-left: 0.4rem;
             margin-right: -6px;

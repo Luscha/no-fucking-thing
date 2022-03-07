@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { initController, getController } from '../../controller';
+import { initController } from '../chains/terra-controller';
 import ConnectSample from '@/components/ConnectSample.vue';
 
 export default {
@@ -26,9 +26,6 @@ export default {
 
   beforeMount() {
     initController().then(() => {
-      console.log("here");
-      console.log(getController());
-      
       this.initialized = true;
     });
   },

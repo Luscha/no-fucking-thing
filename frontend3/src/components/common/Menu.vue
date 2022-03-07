@@ -1,10 +1,10 @@
 <template>
   <nav class="header-menu menu nav">
       <!-- menu list -->
-      <MenuList></MenuList>
+      <!-- <MenuList></MenuList> -->
       <!-- header btn -->
       <ul class="menu-btns">
-          <li><ButtonLink :text="SectionData.headerData.btnText" link="/wallet" classname="btn" :class="classname"></ButtonLink></li>
+          <li><ButtonLink :text="IsConnected() ? trunc(GetConnectedAddress(), 18) : 'Connect'" link="/wallet" classname="btn" :class="classname"></ButtonLink></li>
           <li>
              <ThemeSwitcher></ThemeSwitcher>
           </li>
@@ -13,21 +13,26 @@
 </template>
 
 <script>
-// Import component data. You can change the data in the store to reflect in all component
-import SectionData from '@/store/store.js'
 
 // @ is an alias to /src
-import MenuList from '@/components/common/MenuList.vue'
+// import MenuList from '@/components/common/MenuList.vue'
+import walletController from "@/mixins/walletController.js"
 
 export default {
   name: 'Menu',
   props: ['classname'],
-  components: {
-    MenuList
-  },
-  data () {
-    return {
-      SectionData
+  mixins:[walletController],
+  // components: {
+  //   MenuList
+  // },
+
+  methods: {
+    trunc(str, len) {
+      const min = 8+3+3;
+      if (str.length <= len || len < min) {
+        return str;
+      }
+      return str.substring(0, 8) + "..." + str.substring(str.length-(len-8-3));
     }
   }
 }

@@ -6,6 +6,10 @@ import {
 let instance = undefined;
 
 export async function initController() {
+  if (instance) {
+    return;
+  }
+  
   const chainOptions = await getChainOptions();
 
   instance = new WalletController({
@@ -14,5 +18,7 @@ export async function initController() {
 }
 
 export function getController() {
-  return instance;
+  if (instance) {
+    return instance;
+  }
 }

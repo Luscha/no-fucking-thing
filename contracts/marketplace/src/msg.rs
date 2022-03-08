@@ -12,7 +12,7 @@ pub struct InstantiateMsg {
 #[serde(rename_all = "snake_case")]
 pub enum ExecuteMsg {
     WithdrawNft { offering_id: String },
-    Buy { msg: BuyNft },
+    Buy { offering_id: String, payment: Coin },
     // TODO: SECURITY use cw721 Approve msg instead of transfering the nft
     // to allow the marketplace to transfer the nft once the sell is concluded
     // in this way the user do not have to transfer the nft to the platform
@@ -27,14 +27,24 @@ pub struct SellNft {
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
 #[serde(rename_all = "snake_case")]
-pub struct BuyNft {
-    pub offering_id: String,
-    pub payment: Coin,
-}
-
-#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
-#[serde(rename_all = "snake_case")]
 pub enum QueryMsg {
-    // GetOfferings returns a list of all offerings
-    GetOfferings {},
+    // Offerings returns a list of all offerings
+    Offerings {
+        start_after: Option<String>,
+        limit: Option<u32>,
+    },
+    OfferingsByOwner {
+        owner: String,
+        start_after: Option<String>,
+        limit: Option<u32>,
+    },
+    OfferingsBycollection {
+        collection_contract: String,
+        start_after: Option<String>,
+        limit: Option<u32>,
+    },
+    OfferingByNFT {
+        collection_contract: String,
+        token_id: String,
+    },
 }

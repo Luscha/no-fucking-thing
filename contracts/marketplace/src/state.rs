@@ -7,8 +7,6 @@ use cosmwasm_std::{CanonicalAddr, StdResult, Storage};
 use cw_storage_plus::{Index, IndexList, IndexedMap, Item, MultiIndex};
 #[derive(Serialize, Deserialize, Clone, PartialEq, JsonSchema, Debug)]
 pub struct Offering {
-    pub key: String,
-
     pub token_id: String,
 
     pub contract_addr: CanonicalAddr,
@@ -57,10 +55,4 @@ pub fn offerings<'a>() -> IndexedMap<'a, &'a str, Offering, OfferingIndexes<'a>>
         ),
     };
     IndexedMap::new("offerings", indexes)
-}
-
-pub fn offering_key(contract_addr: &String, token_id: &String) -> String {
-    let mut key_string: String = contract_addr.clone().to_owned();
-    key_string.push_str(token_id.clone().as_str());
-    key_string
 }

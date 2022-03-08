@@ -21,4 +21,9 @@ pub struct OfferingsResponse {
     pub offerings: Vec<QueryOfferingsResult>,
 }
 
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
+pub struct OfferingResponse {
+    pub offering: QueryOfferingsResult,
+}
+
 // THIS FILE SHOULD BE EXTRACTED TO ITS OWN PACKAGE PROJECT LIKE CW20 OR CW721

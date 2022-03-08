@@ -89,6 +89,11 @@ pub enum QueryMsg {
     /// Total number of tokens issued
     NumTokens {},
 
+    /// Total number of tokens owned by owner
+    BalanceOf {
+        owner: String,
+    },
+
     /// With MetaData Extension.
     /// Returns top-level metadata about the contract: `ContractInfoResponse`
     ContractInfo {},

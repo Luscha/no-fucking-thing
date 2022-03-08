@@ -377,6 +377,7 @@ pub fn query(deps: Deps, env: Env, msg: QueryMsg) -> StdResult<Binary> {
             limit,
         )?),
         QueryMsg::NumTokens {} => to_binary(&query_num_tokens(deps)?),
+        QueryMsg::BalanceOf { owner } => to_binary(&query_num_tokens_owner(deps, owner)?),
         QueryMsg::Tokens {
             owner,
             start_after,
@@ -402,6 +403,17 @@ fn query_contract_info(deps: Deps) -> StdResult<ContractInfoResponse> {
 fn query_num_tokens(deps: Deps) -> StdResult<NumTokensResponse> {
     let count = num_tokens(deps.storage)?;
     Ok(NumTokensResponse { count })
+}
+
+fn query_num_tokens_owner(deps: Deps, owner: String) -> StdResult<NumTokensResponse> {
+    let owner_addr = deps.api.addr_validate(&owner)?;
+    let res: Vec<_> = tokens()
+        .idx.owner
+        .prefix(owner_addr)
+        .range(deps.storage, None, None, Order::Ascending)
+        .collect();
+
+    Ok(NumTokensResponse { count: res.len() as u64 })
 }
 
 fn query_nft_info(deps: Deps, token_id: String) -> StdResult<NftInfoResponse> {
@@ -1131,5 +1143,57 @@ mod tests {
         let tokens =
             query_tokens(deps.as_ref(), demeter, Some(by_demeter[0].clone()), Some(3)).unwrap();
         assert_eq!(&by_demeter[1..], &tokens.tokens[..]);
+    }
+
+    #[test]
+    fn query_balance_of() {
+        let mut deps = mock_dependencies(&[]);
+        setup_contract(deps.as_mut());
+        let minter = mock_info(MINTER, &[]);
+
+        // Mint a couple tokens (from the same owner)
+        let token_id1 = "grow1".to_string();
+        let demeter = String::from("Demeter");
+        let token_id2 = "grow2".to_string();
+        let ceres = String::from("Ceres");
+        let token_id3 = "sing".to_string();
+
+        let mint_msg = ExecuteMsg::Mint(MintMsg {
+            token_id: token_id1.clone(),
+            owner: demeter.clone(),
+            name: "Growing power".to_string(),
+            description: Some("Allows the owner the power to grow anything".to_string()),
+            image: None,
+        });
+        execute(deps.as_mut(), mock_env(), minter.clone(), mint_msg).unwrap();
+
+        let mint_msg = ExecuteMsg::Mint(MintMsg {
+            token_id: token_id2.clone(),
+            owner: ceres.clone(),
+            name: "More growing power".to_string(),
+            description: Some(
+                "Allows the owner the power to grow anything even faster".to_string(),
+            ),
+            image: None,
+        });
+        execute(deps.as_mut(), mock_env(), minter.clone(), mint_msg).unwrap();
+
+        let mint_msg = ExecuteMsg::Mint(MintMsg {
+            token_id: token_id3.clone(),
+            owner: demeter.clone(),
+            name: "Sing a lullaby".to_string(),
+            description: Some("Calm even the most excited children".to_string()),
+            image: None,
+        });
+        execute(deps.as_mut(), mock_env(), minter, mint_msg).unwrap();
+
+        // get by owner
+        let by_ceres = 1;
+        let by_demeter = 2;
+        // all tokens by owner
+        let tokens = query_num_tokens_owner(deps.as_ref(), demeter.clone()).unwrap();
+        assert_eq!(&by_demeter, &tokens.count);
+        let tokens = query_num_tokens_owner(deps.as_ref(), ceres).unwrap();
+        assert_eq!(&by_ceres, &tokens.count);
     }
 }

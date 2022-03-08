@@ -17,6 +17,7 @@
 // @ is an alias to /src
 // import MenuList from '@/components/common/MenuList.vue'
 import walletController from "@/mixins/walletController.js"
+import { trunc } from "@/utils/address";
 
 export default {
   name: 'Menu',
@@ -28,11 +29,7 @@ export default {
 
   methods: {
     trunc(str, len) {
-      const min = 8+3+3;
-      if (str.length <= len || len < min) {
-        return str;
-      }
-      return str.substring(0, 8) + "..." + str.substring(str.length-(len-8-3));
+      return trunc(str, len)
     }
   }
 }

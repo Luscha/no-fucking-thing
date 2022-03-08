@@ -1,7 +1,6 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
-import { initController } from './chains/terra-controller';
 // import { getWalletController } from './chains/wallet-controller';
 
 // vue app
@@ -23,7 +22,7 @@ app.use(VueClipboard, {
     appendToBody: true,
 })
 
-initController();  
+
 
 // template custom css
 import './assets/scss/bundles.scss'

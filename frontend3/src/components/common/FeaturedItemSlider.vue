@@ -4,24 +4,24 @@
     :slides-per-view="1"
     :loop="true"
     :navigation="{ clickable: true }" class="swiper-button-s1">
-        <swiper-slide v-for="product in SectionData.productData.products" :key="product.id">
+        <swiper-slide v-for="product in featured" :key="product.token_id">
             <div class="card">
-                <div class="card-image">
-                    <img :src="product.img" class="card-img-top" alt="art image">
+                <div v-if="product.image" class="card-image">
+                    <img :src="product.image" class="card-img-top" alt="art image">
                 </div>
                 <div class="card-body d-flex align-items-center">
-                    <div class="avatar flex-shrink-0 me-2">
+                    <!-- <div class="avatar flex-shrink-0 me-2">
                         <img :src="product.avatar" class="card-img-top" alt="art image">
-                    </div>
+                    </div> -->
                     <div>
-                        <h5 class="card-title text-truncate mb-0">{{ product.title }}</h5>
+                        <h5 class="card-title text-truncate mb-0">{{ product.name }}</h5>
                         <div class="card-author d-flex align-items-center">
                             <span class="me-1 card-author-by">By</span>
-                            <router-link :to="product.authorLink" class=" author-link">{{ product.author }}</router-link>
+                            <router-link :to="'/author/'+product.seller" class=" author-link">{{ trunc(product.seller, 20) }}</router-link>
                         </div><!-- end card-author -->
                     </div>
                 </div><!-- end card-body -->
-                <router-link
+                <!-- <router-link
                     class="details"
                     :to="{
                         name: 'ProductDetail',
@@ -39,14 +39,14 @@
                         }
                     }"
                 >
-                </router-link>
+                </router-link> -->
             </div><!-- end card -->
         </swiper-slide>
     </swiper>
 </template>
 <script>
-// Import component data. You can change the data in the store to reflect in all component
-import SectionData from '@/store/store.js'
+
+import { trunc } from "@/utils/address";
 
 // core version + navigation, pagination modules:
 import SwiperCore, { Navigation } from 'swiper';
@@ -63,9 +63,19 @@ export default {
       Swiper,
       SwiperSlide,
   },
-  data () {
-    return {
-      SectionData
+
+  props : {
+    featured: {
+      type: Array,
+      default() {
+        return []
+      },
+    },
+  },
+
+  methods: {
+    trunc(str, len) {
+      return trunc(str, len)
     }
   },
 }

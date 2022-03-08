@@ -11,90 +11,56 @@
                     <div class="col-lg-6 pe-xl-5">
                         <div class="item-detail-content">
                             <div class="item-detail-img-container mb-4">
-                                <img :src="imgLg" alt="" class="w-100 rounded-3">
+                                <img :src="nft.image" alt="" class="w-100 rounded-3">
                             </div><!-- end item-detail-img-container -->
-                            <div class="item-detail-tab">
-                                <ul class="nav nav-tabs nav-tabs-s1" id="myTab" role="tablist">
-                                    <li class="nav-item" role="presentation" v-for="list in SectionData.itemDetailData.itemDetailTabNav" :key="list.id">
-                                        <button class="nav-link" :class="list.isActive" :id="list.slug" data-bs-toggle="tab" :data-bs-target="list.bsTarget" type="button">{{ list.title }} </button>
-                                    </li>
-                                </ul>
-                                <div class="tab-content mt-3" id="myTabContent">
-                                    <div class="tab-pane fade show active" id="owners" role="tabpanel" aria-labelledby="owners-tab">
-                                        <div class="item-detail-tab-wrap">
-                                            <div class="card-media card-media-s2 mb-3" v-for="item in SectionData.itemDetailData.itemDetailOwnerList" :key="item.id">
-                                                <router-link :to="item.path" class="card-media-img flex-shrink-0 d-block">
-                                                    <img :src="item.avatar" alt="avatar">
-                                                </router-link>
-                                                <div class="card-media-body text-truncate">
-                                                    <p class="fw-semibold text-truncate"><a :href="item.path" class="text-black">{{ item.title }}</a></p>
-                                                    <p class="small">{{ item.subTitle }}</p>
-                                                </div>
-                                            </div><!-- end card -->
-                                        </div><!-- end item-detail-tab-wrap -->
-                                    </div><!-- end tab-pane -->
-                                    <div class="tab-pane fade" id="bids" role="tabpanel" aria-labelledby="bids-tab">
-                                        <div class="item-detail-tab-wrap">
-                                            <div class="card-media card-media-s2 mb-3" v-for="item in SectionData.itemDetailData.itemDetailBidsList" :key="item.id">
-                                                <router-link :to="item.path" class="card-media-img flex-shrink-0 d-block">
-                                                    <img :src="item.avatar" alt="avatar">
-                                                </router-link>
-                                                <div class="card-media-body text-truncate">
-                                                    <p class="fw-semibold text-black text-truncate">{{ item.title }}</p>
-                                                    <p class="small">{{ item.date }}</p>
-                                                </div>
-                                            </div><!-- end card -->
-                                        </div><!-- end item-detail-tab-wrap -->
-                                    </div><!-- end tab-pane -->
-                                    <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">
-                                        <div class="item-detail-tab-wrap">
-                                            <div class="card-media card-media-s2 mb-3" v-for="item in SectionData.itemDetailData.itemDetailHistoryList" :key="item.id">
-                                                <router-link :to="item.path" class="card-media-img flex-shrink-0 d-block">
-                                                    <img :src="item.avatar" alt="avatar">
-                                                </router-link>
-                                                <div class="card-media-body text-truncate">
-                                                    <p class="fw-semibold text-black text-truncate">{{ item.title }}</p>
-                                                    <p class="small text-truncate">{{ item.subTitle }}</p>
-                                                </div>
-                                            </div><!-- end card -->
-                                        </div><!-- end item-detail-tab-wrap -->
-                                    </div><!-- end tab-pane -->
-                                </div>
-                            </div>
+
                         </div><!-- end item-detail-content -->
                     </div><!-- end col -->
+
+                    <!-- DETAILS-->
                     <div class="col-lg-6">
                         <div class="item-detail-content mt-4 mt-lg-0">
-                            <h1 class="item-detail-title mb-2">{{ title }}</h1>
-                            <div class="item-detail-meta d-flex flex-wrap align-items-center mb-3">
-                                <span class="item-detail-text-meta">{{ metaText }}</span>
+                            <h1 class="item-detail-title mb-2">{{ nft.name }}</h1>
+                            <!-- <div class="item-detail-meta d-flex flex-wrap align-items-center mb-3">
+                                <span class="item-detail-text-meta">{{ nft.name }}</span>
                                 <span class="dot-separeted"></span>
                                 <span class="item-detail-text-meta">{{ metaTextTwo }}</span>
                                 <span class="dot-separeted"></span>
                                 <span class="item-detail-text-meta" v-html="metaTextThree"></span>
-                            </div>
-                            <p class="item-detail-text mb-4">{{ content }}</p>
+                            </div> -->
+                            <p class="item-detail-text mb-4">{{ nft.description }}</p>
                             <div class="item-credits">
                                 <div class="row g-4">
-                                    <div class="col-xl-6" v-for="item in SectionData.itemDetailData.itemDetailList" :key="item.id">
+                                    <div class="col-xl-6">
                                         <div class="card-media card-media-s1">
-                                            <router-link :to="item.path" class="card-media-img flex-shrink-0 d-block">
-                                                <img :src="item.avatar" alt="avatar">
+                                            <router-link v-if="minter.avatar" :to="'/author/'+minter.address" class="card-media-img flex-shrink-0 d-block">
+                                                <img :src="minter.avatar" alt="avatar">
                                             </router-link>
                                             <div class="card-media-body">
-                                                <router-link :to="item.path" class="fw-semibold">{{ item.title }}</router-link>
-                                                <p class="fw-medium small">{{ item.subTitle }}</p>
+                                                <router-link :to="'/author/'+minter.address" class="fw-semibold">{{ trunc(minter.address, 18) }}</router-link>
+                                                <p class="fw-medium small">Minter</p>
                                             </div>
                                         </div><!-- end card -->
                                     </div><!-- end col-->
-                                    <div class="col-xl-12" v-for="item in SectionData.itemDetailData.itemDetailListTwo" :key="item.id">
+                                    <div class="col-xl-6">
                                         <div class="card-media card-media-s1">
-                                            <router-link :to="item.path" class="card-media-img flex-shrink-0 d-block">
+                                            <router-link v-if="collection.avatar" :to="'/collections/'+contract" class="card-media-img flex-shrink-0 d-block">
+                                                <img :src="collection.avatar" alt="avatar">
+                                            </router-link>
+                                            <div class="card-media-body">
+                                                <router-link :to="'/collections/'+contract" class="fw-semibold">{{ collection.name }}</router-link>
+                                                <p class="fw-medium small">Collection</p>
+                                            </div>
+                                        </div><!-- end card -->
+                                    </div><!-- end col-->
+                                    <div class="col-xl-12">
+                                        <div class="card-media card-media-s1">
+                                            <router-link v-if="minter.avatar" :to="'/author/'+owner.address" class="card-media-img flex-shrink-0 d-block">
                                                 <img :src="item.avatar" alt="avatar">
                                             </router-link>
                                             <div class="card-media-body">
-                                                <p class="fw-semibold text-black">{{ item.title }}</p>
-                                                <span class="fw-medium small">{{ item.subTitle }}</span>
+                                                <router-link :to="'/author/'+owner" class="fw-semibold">{{ owner.address }}</router-link>
+                                                <p class="fw-medium small">Owner</p>
                                             </div>
                                         </div><!-- end card -->
                                     </div><!-- end col-->
@@ -121,7 +87,7 @@
             </div><!-- .container -->
     </section><!-- end item-detail-section -->
     <!-- Related product -->
-    <RelatedProduct></RelatedProduct>
+    <!-- <RelatedProduct></RelatedProduct> -->
     <!-- Footer  -->
     <Footer classname="bg-dark on-dark"></Footer>
      <!-- Modal -->
@@ -156,34 +122,51 @@
 </template>
 
 <script>
-// Import component data. You can change the data in the store to reflect in all component
 import SectionData from '@/store/store.js'
+
+import { trunc } from "@/utils/address";
+import { safeIpfsToUrl } from "@/utils/nft";
+import * as query from '@/contract/query'
 
 export default {
   name: 'ProductDetail',
-  data(){
+  data() {
         return{
             SectionData,
             id: this.$route.params.id,
-            title: '',
-            imgLg: '',
-            metaText: '',
-            metaTextTwo: '',
-            metaTextThree: '',
-            content: '',
+            contract: this.$route.params.contract,
+            nft: {},
+            collection: {},
+            owner: {},
+            minter: {address:""}
          }
     },
-    mounted() {
-    SectionData.productData.products.forEach( element => {
-        if(this.id == element.id){
-            this.imgLg = element.imgLg;
-            this.title = element.title;
-            this.metaText = element.metaText;
-            this.metaTextTwo = element.metaTextTwo;
-            this.metaTextThree = element.metaTextThree;
-            this.content = element.content;
+
+    methods: {
+        trunc(str, len) {
+            return trunc(str, len)
         }
-    });
+    },
+
+    mounted() {
+        query.queryRaw(this.contract, { all_nft_info: {token_id: this.id, include_expired: false} })
+        .then(res => {
+            console.log(res)
+            this.nft = {...res.info, image: safeIpfsToUrl(res.info.image)}
+            this.owner = {address: res.access.owner}
+        });
+
+        query.queryRaw(this.contract, { contract_info: {} })
+        .then(res => {
+            console.log(res)
+            this.collection = res
+        });
+
+        query.queryRaw(this.contract, { minter: {} })
+        .then(res => {
+            console.log(res)
+            this.minter = {address: res.minter}
+        });
   }
 }
 </script>

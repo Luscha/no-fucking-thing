@@ -9,7 +9,7 @@ const routes = [
   {
     path: "/",
     name: "Home",
-    component: () => import('../pages/Home.vue'),
+    component: () => import('../pages/Home-v2.vue'),
   },
   {
     path: '/home-v2',
@@ -42,13 +42,13 @@ const routes = [
     component: () => import('../pages/Home-v7.vue')
   },
   {
-    path:'/product-details-v1-:id',
+    path:'/product-details-v1-:contract-:id',
     name:'ProductDetail',
     component: () => import('../pages/ProductDetail.vue'),
     props: true
   },
   {
-    path:'/product-details-v2-:id',
+    path:'/product-details-v2-:contract-:id',
     name:'ProductDetail_v2',
     component: () => import('../pages/ProductDetail-v2.vue'),
     props: true

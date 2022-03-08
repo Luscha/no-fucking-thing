@@ -5,19 +5,19 @@
           <!-- Header main -->
           <HeaderMain isTransparent="is-transparent"></HeaderMain>
           <!-- hero -->
-          <heroThree></heroThree>
+          <heroThree :featuredProducts="offerings.slice(0, 3)"></heroThree>
         </header>
         <!-- Category  -->
-        <Category classname="section-space-b"></Category>
+        <!-- <Category classname="section-space-b"></Category> -->
         <!-- Recent Item Section  -->
-        <RecentItemSection></RecentItemSection>
+        <!-- <RecentItemSection></RecentItemSection> -->
         <!-- product  -->
         <section class="section-space trending-section bg-gray">
             <div class="container">
                 <!-- section heading -->
                 <SectionHeading classname="text-center" :text="SectionData.productData.title" :content="SectionData.productData.content" isMargin="mb-3"></SectionHeading>
                 <!-- product -->
-                <ProductsContainer></ProductsContainer>
+                <ProductsContainer :products="offerings"></ProductsContainer>
                 <div class="text-center mt-4 mt-md-5">
                     <ButtonLink :text="SectionData.productData.btnText" :link="SectionData.productData.btnLink" classname="btn-link btn-link-s1"></ButtonLink>
                 </div>
@@ -26,7 +26,7 @@
         <!-- HowItWork  -->
         <HowItWork classname="col-lg-3" :title="SectionData.howItWorkData.titleTwo" :subtitle="SectionData.howItWorkData.content" gutterBottom="mb-3"></HowItWork>
         <!-- funFact  -->
-        <funFactSection :isBg="true" class="section-space" classname="col-lg-4 col-sm-6" :items="SectionData.funfactData.funfactList"></funFactSection>
+        <!-- <funFactSection :isBg="true" class="section-space" classname="col-lg-4 col-sm-6" :items="SectionData.funfactData.funfactList"></funFactSection> -->
         <!-- Newsletter  -->
         <Newsletter></Newsletter>
         <!-- Footer  -->
@@ -38,6 +38,12 @@
 // Import component data. You can change the data in the store to reflect in all component
 import SectionData from '@/store/store.js'
 import heroThree from '@/components/section/HeroThree.vue'
+import {parseOffering} from '@/utils/nft-offer'
+import * as query from '@/contract/query'
+
+const fetchData = () => {
+  return query.query("marketplace", { get_offerings: {} });
+};
 
 export default {
   name: 'Home-v2',
@@ -46,8 +52,15 @@ export default {
   },
   data () {
     return {
-      SectionData
+      SectionData,
+      offerings: []
     }
+  },
+  
+  mounted() {
+    fetchData().then(res => {
+      this.offerings = res.offerings.map(nft => (parseOffering(nft)));
+    });
   }
 }
 </script>

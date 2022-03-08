@@ -114,7 +114,7 @@ pub fn try_buy(
     )
 }
 
-const ACCEPTED_DENOMS: &[&str] = &["uust", "uluna"];
+const ACCEPTED_DENOMS: &[&str] = &["uusd", "uluna"];
 
 fn validate_deposit(api: &dyn Api, asset_unchecked: AssetUnchecked) -> StdResult<()> {
     asset_unchecked.check(api, Some(ACCEPTED_DENOMS))?;
@@ -491,7 +491,7 @@ mod tests {
         }
 
         // msg, funds denom missmatch
-        let info_buy = mock_info("buyer", &coins(1u128, "uust"));
+        let info_buy = mock_info("buyer", &coins(1u128, "uusd"));
 
         let _res = execute(deps.as_mut(), mock_env(), info_buy, msg2.clone()).unwrap_err();
         match _res {
@@ -521,11 +521,11 @@ mod tests {
         let msg2 = ExecuteMsg::Buy {msg: BuyNft {
             offering_id: value.offerings[0].id.clone(),
             payment: Coin {
-                denom: "uust".to_string(),
+                denom: "uusd".to_string(),
                 amount: Uint128::new(5),
             }
         }};
-        let info_buy = mock_info("buyer", &coins(5u128, "uust"));
+        let info_buy = mock_info("buyer", &coins(5u128, "uusd"));
         let _res = execute(deps.as_mut(), mock_env(), info_buy, msg2.clone()).unwrap_err();
         match _res {
             ContractError::WrongCoin{} => (),
@@ -547,7 +547,7 @@ mod tests {
 
         let sell_msg = SellNft {
             list_price: Coin {
-                denom: "uusd".to_string(),
+                denom: "uust".to_string(),
                 amount: Uint128::new(5),
             },
         };

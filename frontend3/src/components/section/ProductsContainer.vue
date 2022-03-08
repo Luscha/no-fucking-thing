@@ -1,6 +1,6 @@
 <template>
   <div class="row g-gs">
-    <div class="col-xl-3 col-lg-4 col-sm-6" v-for="product in SectionData.productData.products" :key="product.id">
+    <div class="col-xl-3 col-lg-4 col-sm-6" v-for="product in products" :key="product.id+product.contractAddr">
         <Products :product="product"></Products>
     </div>
   </div>
@@ -15,11 +15,13 @@ export default {
   components: { 
     Products 
   },
-  data () {
-      return {
-        SectionData,
-      }
-  }
-
+  props: {
+    products: {
+      type: Array,
+      default() {
+        return SectionData
+      },
+    },
+  },
 };
 </script>

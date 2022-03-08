@@ -4,7 +4,9 @@
   "description": "",
   "private": true,
   "scripts": {
-    "deploy:marketplace": "terrain deploy marketplace --signer=validator"
+    "deploy:marketplace": "terrain deploy marketplace --signer=validator",
+    "deploy:cw721": "terrain deploy cw721 --signer=validator",
+    "sync-refs": "terrain sync-refs --dest=./frontend3/src/refs.terrain.json"
   },
   "dependencies": {
     "@iboss/terrain": "0.0.8"

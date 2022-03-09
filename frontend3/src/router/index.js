@@ -190,7 +190,7 @@ const routes = [
     component: () => import('../pages/DepositEnfties.vue')
   },
   {
-    path: '/profile',
+    path: '/profile/:address',
     name: 'profile',
     component: () => import('../pages/Profile.vue')
   },

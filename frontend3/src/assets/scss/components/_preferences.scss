@@ -147,6 +147,9 @@
     .card-title {
         color: $white;
     }
+    .author-link:hover {
+        color: $black-7;
+    }
     .card,
     .client-logo-item {
         border: 1px solid $black-2;

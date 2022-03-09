@@ -4,7 +4,10 @@
       <MenuList></MenuList>
       <!-- header btn -->
       <ul class="menu-btns">
-          <li><ButtonLink :text="IsConnected() ? trunc(GetConnectedAddress(), 18) : 'Connect'" link="/wallet" classname="btn" :class="classname"></ButtonLink></li>
+          <li>
+            <ButtonLink v-if="!IsConnected()" :text="'Connect'" link="/wallet" classname="btn" :class="classname"></ButtonLink>
+            <ButtonLink v-else :text="trunc(ConnectedAddress, 18)" :link="'/profile/me'" classname="btn" :class="classname"></ButtonLink>
+          </li>
           <li>
              <ThemeSwitcher></ThemeSwitcher>
           </li>

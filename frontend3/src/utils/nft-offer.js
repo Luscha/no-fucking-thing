@@ -10,6 +10,10 @@ export function parseOffering(offering) {
             denom: denom[offering.list_price.denom],
             amount: parseInt(offering.list_price.amount)/1000000,
         },
+        priceCanonical: {
+            denom: offering.list_price.denom,
+            amount: offering.list_price.amount,
+        },
         contractAddr: offering.contract_addr,
         seller: offering.seller
     }

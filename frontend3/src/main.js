@@ -22,7 +22,12 @@ app.use(VueClipboard, {
     appendToBody: true,
 })
 
+import { createHead } from '@vueuse/head'
+const head = createHead()
+app.use(head)
 
+import Notifications from '@kyvg/vue3-notification'
+app.use(Notifications)
 
 // template custom css
 import './assets/scss/bundles.scss'
@@ -34,6 +39,7 @@ import HeaderDashboard from './components/common/HeaderDashboard.vue';
 import SectionHeading from './components/common/SectionHeading.vue';
 import SectionHeadingTwo from './components/common/SectionHeadingTwo.vue';
 import ProductsContainer from './components/section/ProductsContainer.vue';
+import NftsContainer from './components/section/NftsContainer.vue';
 import FeaturedCreators from './components/section/FeaturedCreators.vue';
 import BlogSection from './components/section/BlogSection.vue';
 import BlogSectionSlider from './components/section/BlogSectionSlider.vue';
@@ -126,6 +132,7 @@ app.component('HeaderDashboard', HeaderDashboard);
 app.component('SectionHeading', SectionHeading);
 app.component('SectionHeadingTwo', SectionHeadingTwo);
 app.component('ProductsContainer', ProductsContainer);
+app.component('NftsContainer', NftsContainer);
 app.component('FeaturedCreators', FeaturedCreators);
 app.component('BlogSection', BlogSection)
 app.component('BlogSectionSlider', BlogSectionSlider)

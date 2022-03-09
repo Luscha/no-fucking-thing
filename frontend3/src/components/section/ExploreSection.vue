@@ -4,7 +4,13 @@
             <div class="explore-items-wrap">
                 <ul class="nav nav-tabs nav-tabs-s1" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation" v-for="list in sections" :key="list.id">
-                        <button class="nav-link" :class="list.isActive" :id="list.slug" data-bs-toggle="tab" :data-bs-target="list.bsTarget" type="button" v-on:click="() => {tab = list.id}">{{ list.title }}</button>
+                        <button class="nav-link" 
+                          :class="list.isActive" 
+                          :id="list.slug" 
+                          data-bs-toggle="tab" 
+                          :data-bs-target="list.bsTarget" 
+                          type="button" 
+                          v-on:click="() => {tab = list.id}">{{ list.title }}</button>
                     </li>
                 </ul>
                 <div class="gap-2x"></div><!-- end gap-2x -->

@@ -25,9 +25,6 @@
                   </div><!-- end card-media -->
               </div>
           </div>
-          <div v-else>
-            <button class="btn btn-dark" v-on:click="Disconnect()">Disconnect</button>
-          </div>
       </div><!-- .container -->
   </section><!-- end wallet-section -->
 </template>

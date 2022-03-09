@@ -84,6 +84,58 @@ mod tests {
     }
 
     #[test]
+    fn sell_offering_already_owned() {
+        let mut deps = mock_dependencies(&[]);
+
+        let msg = InstantiateMsg {
+            name: String::from("test market"),
+        };
+        let info = mock_info("creator", &[]);
+        let _res = instantiate(deps.as_mut(), mock_env(), info, msg).unwrap();
+
+        // beneficiary can release it
+        let info = mock_info("anyone", &[]);
+
+        let sell_msg = SellNft {
+            list_price: Coin {
+                denom: "uluna".to_string(),
+                amount: Uint128::new(5),
+            },
+        };
+
+        let msg = ExecuteMsg::ReceiveNft(Cw721ReceiveMsg {
+            sender: String::from("seller"),
+            token_id: String::from("SellableNFT"),
+            msg: to_binary(&sell_msg).unwrap(),
+        });
+        let _res = execute(deps.as_mut(), mock_env(), info, msg).unwrap();
+
+        // Offering should be listed
+        let _res = query(deps.as_ref(), mock_env(), QueryMsg::Offerings {limit: None, start_after: None}).unwrap();
+        let value: OfferingsResponse = from_binary(&_res).unwrap();
+        assert_eq!(1, value.offerings.len());
+
+        let msg2 = ExecuteMsg::Buy {
+            offering_id: value.offerings[0].id.clone(),
+            payment: Coin {
+                denom: "uluna".to_string(),
+                amount: Uint128::new(5),
+            }
+        };
+
+        let info_buy = mock_info("seller", &[Coin {
+            denom: "uluna".to_string(),
+            amount: Uint128::from(5u128),
+        }]);
+
+        let _res = execute(deps.as_mut(), mock_env(), info_buy, msg2).unwrap_err();
+        match _res {
+            ContractError::AlreadyOwned{} => (),
+            _ => panic!("Must return AlreadyOwned error"),
+        }
+    }
+
+    #[test]
     fn withdraw_offering_happy_path() {
         let mut deps = mock_dependencies(&[]);
 

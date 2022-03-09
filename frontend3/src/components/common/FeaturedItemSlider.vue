@@ -17,7 +17,7 @@
                         <h5 class="card-title text-truncate mb-0">{{ product.name }}</h5>
                         <div class="card-author d-flex align-items-center">
                             <span class="me-1 card-author-by">By</span>
-                            <router-link :to="'/author/'+product.seller" class=" author-link">{{ trunc(product.seller, 20) }}</router-link>
+                            <router-link :to="'/profile/'+product.seller" class=" author-link">{{ trunc(product.seller, 20) }}</router-link>
                         </div><!-- end card-author -->
                     </div>
                 </div><!-- end card-body -->

@@ -18,6 +18,7 @@ export default {
     data() {
         return {
             states: {},
+            connectedWallet: undefined,
             availableInstallTypes: [],
             availableConnections: [],
             subscription: undefined,
@@ -26,19 +27,27 @@ export default {
     },
 
     async mounted() {
+        // TODO WHY getController().connectedWallet() DO NOT WORK?
+        setInterval(function(){
+            getController().refetchStates()
+          }, 1000);
+
         initController().then(() => {
             this.subscription = combineLatest([
             getController().availableInstallTypes(),
             getController().availableConnections(),
             getController().states(),
+            getController().connectedWallet(),
             ]).subscribe(
             ([
                 _availableInstallTypes,
                 _availableConnections,
                 _states,
+                _connectedWallet,
             ]) => {
                 this.availableInstallTypes = _availableInstallTypes.map(it => (installInfo[it]));
                 this.availableConnections = _availableConnections;
+                this.connectedWallet = _connectedWallet;
                 const connected = this.states.status !== undefined && !this.IsConnected() && _states.status === WalletStatus.WALLET_CONNECTED
                 this.states = _states;
                 if (this.connecting && connected) {
@@ -62,6 +71,10 @@ export default {
         GetAvailableConnections() {
             return this.availableConnections.filter(a => a.type != ConnectType.READONLY);
         },
+
+        ConnectedAddress() {
+            return this.connectedWallet?.terraAddress;
+        },
     },
 
     methods: {
@@ -74,17 +87,7 @@ export default {
         },
     
         GetWallet() {
-            if (this.states.status == WalletStatus.WALLET_CONNECTED) {
-                return this.states.wallets[0];
-            }
-            return undefined;
-        },
-    
-        GetConnectedAddress() {
-            if (this.states.status == WalletStatus.WALLET_CONNECTED) {
-                return this.states.wallets[0].terraAddress;
-            }
-            return "";
+            return this.connectedWallet;
         },
     
         Connect(type, identifier) {

@@ -79,6 +79,10 @@ pub fn try_buy(
         return Err(ContractError::WrongCoin {});
     }
 
+    if info.sender.to_string() == deps.api.addr_humanize(&off.seller)?.to_string() {
+        return Err(ContractError::AlreadyOwned {});
+    }
+
     // create transfer coin msg
     let asset1 = Asset::native(payment.denom.clone(), payment.amount.clone());
     let coin_transfer_cosmos_msg = asset1.transfer_msg(deps.api.addr_humanize(&off.seller)?.into_string())?;

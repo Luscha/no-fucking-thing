@@ -20,20 +20,20 @@ export class NftWrapper {
         this.token_id = token_id;
     }
 
-    load = function() {
-        this.loadInfo();
+    load = function(force = false) {
+        this.loadInfo(force);
         this.loadCollection();
         this.loadOffer();
     }
 
-    loadInfo = function() {
+    loadInfo = function(force) {
         this.loaded = true;
         query.queryRaw(this.contract, { all_nft_info: {token_id: this.token_id} })
         .then(res => {
             this.info = {...res.info, image: safeIpfsToUrl(res.info.image)}
 
             // Do not override offer seller
-            if (!this.owner.address) {
+            if (!force && !this.owner.address) {
                 this.owner = {address: res.access.owner}
             }
         })
@@ -44,14 +44,12 @@ export class NftWrapper {
         this.loaded = true;
         query.queryRaw(this.contract, { contract_info: {} })
         .then(res => {
-            console.log("contract", res)
             this.collection = res
         })
         .catch(err => console.log(err));
 
         query.queryRaw(this.contract, { minter: {} })
         .then(res => {
-            console.log("minter", res)
             this.minter = {address: res.minter}
         })
         .catch(err => console.log(err));
@@ -63,7 +61,6 @@ export class NftWrapper {
             token_id: this.token_id,
         } })
         .then(res => {
-            console.log("offer",res)
             this.offer = parseOffering(res.offering);
             this.inSale = true;
             this.owner = {address: this.offer.seller};

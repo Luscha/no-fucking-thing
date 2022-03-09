@@ -18,4 +18,7 @@ pub enum ContractError {
 
     #[error("wrong coin")]
     WrongCoin {},
+
+    #[error("already owned")]
+    AlreadyOwned {},
 }

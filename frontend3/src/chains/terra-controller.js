@@ -11,6 +11,10 @@ export async function initController() {
   }
   
   const chainOptions = await getChainOptions();
+  
+  if (instance) {
+    return;
+  }
 
   instance = new WalletController({
     ...chainOptions,

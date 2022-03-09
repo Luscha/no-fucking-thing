@@ -1,15 +1,15 @@
 {
   "localterra": {
     "gen0": {
-      "codeId": "7",
+      "codeId": "10",
       "contractAddresses": {
-        "default": "terra18dt935pdcn2ka6l0syy5gt20wa48n3mktvdvjj"
+        "default": "terra1fn9wsg32jpdlz0n84w42fdf593u0tjlkcmjvqa"
       }
     },
     "marketplace": {
-      "codeId": "8",
+      "codeId": "12",
       "contractAddresses": {
-        "default": "terra1l425neayde0fzfcv3apkyk4zqagvflm6cmha9v"
+        "default": "terra1uq0haxdf5cgg7s76frd3rtnr0trzaazyy00jqf"
       }
     }
   }

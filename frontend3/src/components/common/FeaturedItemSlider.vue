@@ -21,25 +21,17 @@
                         </div><!-- end card-author -->
                     </div>
                 </div><!-- end card-body -->
-                <!-- <router-link
-                    class="details"
-                    :to="{
-                        name: 'ProductDetail',
-                        params: {
-                        id: product.id,
-                        title: product.title,
-                        metaText: product.metaText,
-                        price: product.price,
-                        priceTwo: product.priceTwo,
-                        imgLg: product.imgLg,
-                        metaText: product.metaText,
-                        metaTextTwo: product.metaTextTwo,
-                        metaTextThree: product.metaTextThree,
-                        content: product.content,
-                        }
-                    }"
-                >
-                </router-link> -->
+                <router-link
+                  class="details"
+                  :to="{
+                      name: 'ProductDetail',
+                      params: {
+                        id: product.token_id,
+                        contract: product.contractAddr
+                      }
+                  }"
+              >
+              </router-link>
             </div><!-- end card -->
         </swiper-slide>
     </swiper>

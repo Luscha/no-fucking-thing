@@ -64,11 +64,21 @@
     p {
         color: $secondary;
     }
+    &-image {
+        &.same-h {
+            height: 250px;
+        }
+    }
     &-img {
         @include border-radius(0.375rem);
         &-top {
             border-top-left-radius: 0.375rem;
             border-top-right-radius: 0.375rem; 
+        }
+
+        &-fit-h {
+            object-fit: cover;
+            height: 100%;
         }
     }
     &-body-s1 {

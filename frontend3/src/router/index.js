@@ -75,11 +75,6 @@ const routes = [
     component: () => import('../pages/Explore.vue')
   },
   {
-    path: '/explore-v2',
-    name: 'exploreV2',
-    component: () => import('../pages/Explore-v2.vue')
-  },
-  {
     path: '/explore-v3',
     name: 'exploreV3',
     component: () => import('../pages/Explore-v3.vue')

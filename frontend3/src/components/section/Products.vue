@@ -1,10 +1,10 @@
 <template>
     <div class="card card-full">
-        <div v-if="loaded" class="card-image">
-            <img :src="extension.image" class="card-img-top" alt="art image">
+        <div v-if="wrapper.info.image" class="card-image same-h">
+            <img :src="wrapper.info.image" class="card-img-top card-img-fit-h" alt="art image">
         </div>
         <div class="card-body p-4">
-            <h5 class="card-title text-truncate mb-0">{{ extension.name }}</h5>
+            <h5 class="card-title text-truncate mb-0">{{ wrapper.info.name }}</h5>
             <div class="card-author mb-1 d-flex align-items-center">
                 <span class="me-1 card-author-by">By</span>
                 <router-link :to="'/author/'+product.seller" class="custom-tooltip author-link">{{ trunc(product.seller, 18) }}</router-link>
@@ -36,8 +36,7 @@
 </template>
 <script>
 import { trunc } from "@/utils/address";
-import { safeIpfsToUrl } from "@/utils/nft";
-import * as query from '@/contract/query'
+import { NftWrapper } from '@/models/nft-wrapper';
 
 export default {
   name: 'Products',
@@ -50,7 +49,7 @@ export default {
 
   data() {
     return {
-      extension: {}
+      wrapper: new NftWrapper(this.product.contractAddr, this.product.token_id)
     }
   },
 
@@ -61,12 +60,7 @@ export default {
   },
 
   mounted() {
-    if (this.extension.image == undefined && this.product.contractAddr) {
-      query.queryRaw(this.product.contractAddr, { nft_info: {token_id: this.product.token_id} })
-      .then(res => {
-        this.extension = {...res, image: safeIpfsToUrl(res.image)}
-      })
-    }
+    this.wrapper.loadInfo();
   },
 }
 </script>

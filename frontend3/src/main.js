@@ -61,7 +61,6 @@ import RecentItemSlider from './components/common/RecentItemSlider.vue';
 import FullScreenSlider from './components/common/FullScreenSlider.vue';
 import FunFactSection from './components/section/FunFactSection.vue';
 import ExploreSection from './components/section/ExploreSection.vue';
-import ExploreSectionTwo from './components/section/ExploreSectionTwo.vue';
 import ExploreSectionThree from './components/section/ExploreSectionThree.vue';
 import ExploreSectionFour from './components/section/ExploreSectionFour.vue';
 import ExploreSectionFive from './components/section/ExploreSectionFive.vue';
@@ -154,7 +153,6 @@ app.component('RecentItemSlider', RecentItemSlider)
 app.component('FullScreenSlider', FullScreenSlider)
 app.component('FunFactSection', FunFactSection)
 app.component('ExploreSection', ExploreSection)
-app.component('ExploreSectionTwo', ExploreSectionTwo)
 app.component('ExploreSectionThree', ExploreSectionThree)
 app.component('ExploreSectionFour', ExploreSectionFour)
 app.component('ExploreSectionFive', ExploreSectionFive)

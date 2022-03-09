@@ -287,6 +287,10 @@
             &-btns {
                 padding-top: 0rem;
             }
+
+            &.nav {
+                display: flex;
+            }
         }
     }
     .menu {

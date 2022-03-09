@@ -20,7 +20,8 @@ export default {
             states: {},
             availableInstallTypes: [],
             availableConnections: [],
-            subscription: undefined
+            subscription: undefined,
+            connecting: false,
         }
     },
 
@@ -38,10 +39,11 @@ export default {
             ]) => {
                 this.availableInstallTypes = _availableInstallTypes.map(it => (installInfo[it]));
                 this.availableConnections = _availableConnections;
-                const needRedirect = this.states.status !== undefined && !this.IsConnected() && _states.status === WalletStatus.WALLET_CONNECTED
+                const connected = this.states.status !== undefined && !this.IsConnected() && _states.status === WalletStatus.WALLET_CONNECTED
                 this.states = _states;
-                if (needRedirect) {
-                    this.$router.push({ path: '/' })
+                if (this.connecting && connected) {
+                    this.$router.back();
+                    this.connecting = false;
                 }
             },
             )
@@ -86,12 +88,13 @@ export default {
         },
     
         Connect(type, identifier) {
+            this.connecting = true;
             return getController().connect(type, identifier)
         },
     
         Disconnect() {
             getController().disconnect();
-            this.$router.push({ path: '/' });
+            this.$router.back();
         },
     
         Install(type) {

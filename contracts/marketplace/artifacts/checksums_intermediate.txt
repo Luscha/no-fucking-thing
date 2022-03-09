@@ -1,1 +1,1 @@
-135fa76b64f360795eb90deb0ff59628aa33619d1fbb669bdb64188cee2b3629  ./target/wasm32-unknown-unknown/release/marketplace.wasm
+1914966f6b268c50467444b118186a054c74eeb97670ab069be8aaa1dc8e80fb  ./target/wasm32-unknown-unknown/release/marketplace.wasm

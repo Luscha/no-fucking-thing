@@ -1,1 +1,1 @@
-a4c8d260e27b6ace4b01de4447d780651dac72a4531d292ae55ae13540be0791  ./target/wasm32-unknown-unknown/release/cw721.wasm
+b92e6a7c404509c65ebe05197e671928ccb8c65f75a11f80f1b4d52e1a66aa06  ./target/wasm32-unknown-unknown/release/gen0.wasm

@@ -41,10 +41,6 @@ import heroThree from '@/components/section/HeroThree.vue'
 import {parseOffering} from '@/utils/nft-offer'
 import * as query from '@/contract/query'
 
-const fetchData = () => {
-  return query.query("marketplace", { get_offerings: {} });
-};
-
 export default {
   name: 'Home-v2',
   components: {
@@ -58,7 +54,7 @@ export default {
   },
   
   mounted() {
-    fetchData().then(res => {
+    query.query("marketplace", { offerings: { limit: 4 } }).then(res => {
       this.offerings = res.offerings.map(nft => (parseOffering(nft)));
     });
   }

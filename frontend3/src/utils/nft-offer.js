@@ -1,5 +1,3 @@
-// import {safeIpfsToUrl} from "./nft";
-
 export function parseOffering(offering) {
     const denom = {
         uluna: "LUNA",

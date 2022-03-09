@@ -29,12 +29,12 @@ pub fn query(
             start_after,
             limit,
         } => to_binary(&query_offerings_owner(deps, owner, start_after, limit)?),
-        QueryMsg::OfferingsBycollection {
+        QueryMsg::OfferingsByCollection {
             collection_contract,
             start_after,
             limit,
         } => to_binary(&query_offerings_collection(deps, collection_contract, start_after, limit)?),
-        QueryMsg::OfferingByNFT {
+        QueryMsg::OfferingByNft {
             collection_contract,
             token_id,
         } => to_binary(&query_offering_nft(deps, collection_contract, token_id)?),

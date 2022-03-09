@@ -218,27 +218,27 @@ mod tests {
         assert_eq!(0, value2.offerings.len());
 
         // check offerings contract
-        let res2 = query(deps.as_ref(), mock_env(), QueryMsg::OfferingsBycollection {collection_contract: "contract_2".to_string(), limit: None, start_after: None}).unwrap();
+        let res2 = query(deps.as_ref(), mock_env(), QueryMsg::OfferingsByCollection {collection_contract: "contract_2".to_string(), limit: None, start_after: None}).unwrap();
         let value2: OfferingsResponse = from_binary(&res2).unwrap();
         assert_eq!(2, value2.offerings.len());
 
         // check pagination contract
-        let res2 = query(deps.as_ref(), mock_env(), QueryMsg::OfferingsBycollection {collection_contract: "contract_2".to_string(), limit: Some(1), start_after: None}).unwrap();
+        let res2 = query(deps.as_ref(), mock_env(), QueryMsg::OfferingsByCollection {collection_contract: "contract_2".to_string(), limit: Some(1), start_after: None}).unwrap();
         let value2: OfferingsResponse = from_binary(&res2).unwrap();
         assert_eq!(1, value2.offerings.len());
 
         // check pagination contract
-        let res2 = query(deps.as_ref(), mock_env(), QueryMsg::OfferingsBycollection {collection_contract: "contract_2".to_string(), limit: Some(2), start_after: Some("2".to_string())}).unwrap();
+        let res2 = query(deps.as_ref(), mock_env(), QueryMsg::OfferingsByCollection {collection_contract: "contract_2".to_string(), limit: Some(2), start_after: Some("2".to_string())}).unwrap();
         let value2: OfferingsResponse = from_binary(&res2).unwrap();
         assert_eq!(1, value2.offerings.len());
 
         // check search
-        let res2 = query(deps.as_ref(), mock_env(), QueryMsg::OfferingByNFT {collection_contract: "contract_2".to_string(), token_id: "SellableNFT2".to_string()}).unwrap();
+        let res2 = query(deps.as_ref(), mock_env(), QueryMsg::OfferingByNft {collection_contract: "contract_2".to_string(), token_id: "SellableNFT2".to_string()}).unwrap();
         let value2: OfferingResponse = from_binary(&res2).unwrap();
         assert_eq!("SellableNFT2", value2.offering.token_id);
 
         // check search fail
-        let res2 = query(deps.as_ref(), mock_env(), QueryMsg::OfferingByNFT {collection_contract: "contract_3".to_string(), token_id: "SellableNFT2".to_string()}).unwrap_err();
+        let res2 = query(deps.as_ref(), mock_env(), QueryMsg::OfferingByNft {collection_contract: "contract_3".to_string(), token_id: "SellableNFT2".to_string()}).unwrap_err();
         match res2 {
             StdError::NotFound { .. } => (),
             _ => panic!("Must return not_found error"),

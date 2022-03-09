@@ -38,12 +38,12 @@ pub enum QueryMsg {
         start_after: Option<String>,
         limit: Option<u32>,
     },
-    OfferingsBycollection {
+    OfferingsByCollection {
         collection_contract: String,
         start_after: Option<String>,
         limit: Option<u32>,
     },
-    OfferingByNFT {
+    OfferingByNft {
         collection_contract: String,
         token_id: String,
     },

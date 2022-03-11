@@ -158,9 +158,7 @@ export default {
             const wallet = this.GetWallet();
             if (!wallet) {
                 return;
-            }
-            
-            console.log(wallet)
+            }           
 
             const coins = {};
             coins[this.wrapper.offer.priceCanonical.denom] = this.wrapper.offer.priceCanonical.amount;

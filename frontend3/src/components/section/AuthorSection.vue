@@ -127,7 +127,7 @@ export default {
             this.loading = true;
             if (this.tab == 2) {
                 this.loadOfferings(this.offerings[this.offerings.length-1].id)
-            } else if (this.tab == 3) {
+            } else if (this.tab == 1) {
                 this.loadOwned(this.owned[this.owned.length-1].id)
             }
         }

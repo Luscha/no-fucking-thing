@@ -195,6 +195,11 @@ const routes = [
     component: () => import('../pages/Profile.vue')
   },
   {
+    path: '/me/:section',
+    name: 'me',
+    component: () => import('../pages/ProfileMe.vue')
+  },
+  {
     path: '/account',
     name: 'account',
     component: () => import('../pages/Account.vue')

@@ -59,12 +59,12 @@ export default {
           title: 'On Sale',
           path: '/me/on-sale'
         },
-        {
-          id: "collections",
-          // icon: 'ni-gift',
-          title: 'Collections',
-          path: '/me/collections'
-        },
+        // {
+        //   id: "collections",
+        //   // icon: 'ni-gift',
+        //   title: 'Collections',
+        //   path: '/me/collections'
+        // },
       ]
     }
   },

@@ -6,7 +6,7 @@
       <ul class="menu-btns">
           <li>
             <ButtonLink v-if="!IsConnected()" :text="'Connect'" link="/wallet" classname="btn" :class="classname"></ButtonLink>
-            <ButtonLink v-else :text="trunc(ConnectedAddress, 18)" :link="'/me'" classname="btn" :class="classname"></ButtonLink>
+            <ButtonLink v-else :text="trunc(ConnectedAddress, 18)" :link="'/me/owned'" classname="btn" :class="classname"></ButtonLink>
           </li>
           <li>
              <ThemeSwitcher></ThemeSwitcher>

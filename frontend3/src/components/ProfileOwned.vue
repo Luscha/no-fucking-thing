@@ -14,13 +14,18 @@
         :nfts="owned" 
         :loading="loading" 
         :hasMore="hasMore"
+        :fullScreen="false"
         @more="more()"/>
     </div><!-- row -->
 </template>
 
 <script>
+import token from '@/mixins/token-owned';
+
 export default {
   name: 'ProfileOwned',
+  mixins: [token],
+
   props: {
     address: {
       type: String,
@@ -30,16 +35,28 @@ export default {
 
   data () {
     return {
-      loading: false,
-      hasMore: true,
-      owned: []
+    }
+  },
+
+  watch: {
+    'address': {
+      handler(address) {
+        this.clear(),
+        this.loadOwned(address);
+      }
     }
   },
 
   methods: {
     more() {
       this.loading = true;
+      this.loadOwned(this.address, this.ownedIDs[this.ownedIDs.length-1]);
     }
+  },
+
+  mounted() {
+    this.loading = true;
+    this.loadOwned(this.address);
   }
 }
 </script>

@@ -66,10 +66,13 @@
                             </div><!-- end row -->
                             <div class="item-detail-btns mt-4">
                                 <ul class="btns-group d-flex">
-                                    <li v-if="wrapper.inSale" class="flex-grow-1">
-                                        <a v-if="IsConnected()" href="#" @click.prevent="() => showModal()" class="btn btn-dark d-block">Buy</a>
+                                    <li v-if="canBuy" class="flex-grow-1">
+                                        <a v-if="IsConnected()" href="#" @click.prevent="() => showBuyModal()" class="btn btn-dark d-block">Buy</a>
                                         <!-- <button v-if="IsConnected()" class="btn btn-dark d-block w-200">Buy</button> -->
                                         <span v-else class="text-orange">Connect your wallet to buy or place a bid</span>
+                                    </li>
+                                    <li v-if="canBeSold" class="flex-grow-1">
+                                        <a v-if="IsConnected()" href="#" @click.prevent="() => showSellModal()" class="btn btn-dark d-block">Put on sale</a>
                                     </li>
                                     <!-- <li class="flex-grow-1">
                                         <div class="dropdown">
@@ -111,6 +114,34 @@
                     </div><!-- end modal-content -->
                 </div><!-- end modal-dialog -->
             </div><!-- end modal-->
+
+            <div v-if="canBeSold" class="modal fade" id="sellModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Sell Nft</h4>
+                            <button type="button" class="btn-close icon-btn" data-bs-dismiss="modal" aria-label="Close">
+                                <em class="ni ni-cross"></em>
+                            </button>
+                        </div><!-- end modal-header -->
+                        <div class="modal-body">
+                            <p class="mb-3">
+                                Select the price you want to sell <strong>{{ wrapper.collection.name }} - {{ wrapper.info.name }}</strong> 
+                            </p>
+                            <ul class="total-bid-list mb-4">
+                                <li>
+                                    <input v-model="sellData.amount" type="number" class="form-control form-control-s1" placeholder="Amount">
+                                    <v-select class="generic-select" v-model="sellData.coin" :options="[{label: 'UST', denom: 'uusd'}, {label: 'LUNA', denom: 'uluna'}]"></v-select>
+                                </li>
+                            </ul>
+                            <p class="mb-3 text-red .smaller lh">
+                                You will wait some time before the transaction is processed by <strong class="text-red">Terra</strong>
+                            </p>
+                            <button v-on:click="() => sell()" class="btn btn-primary d-block">Put on sale</button>
+                        </div><!-- end modal-body -->
+                    </div><!-- end modal-content -->
+                </div><!-- end modal-dialog -->
+            </div><!-- end modal-->
     </section><!-- end item-detail-section -->
     <!-- Footer  -->
     <Footer classname="bg-dark on-dark"></Footer>
@@ -122,7 +153,7 @@ import SectionData from '@/store/store.js'
 import { Modal } from 'bootstrap';
 import { Fee } from "@terra-money/terra.js";
 
-import {exec} from '@/contract/execute';
+import { exec,execRaw} from '@/contract/execute';
 
 import { trunc } from "@/utils/address";
 import { NftWrapper } from '@/models/nft-wrapper';
@@ -138,14 +169,34 @@ export default {
             id: this.$route.params.id,
             contract: this.$route.params.contract,
             wrapper: new NftWrapper(this.$route.params.contract, this.$route.params.id),
-            modal: undefined
-         }
+            modal: undefined,
+            sellData: {
+                amount: 0,
+                coin: {label: 'LUNA', denom: 'uluna'}
+            }
+        }
+    },
+
+    computed: {
+        canBuy() {
+            return this.wrapper.inSale && (!this.IsConnected() || this.ConnectedAddress != this.wrapper.owner?.address)
+        },
+        canBeSold() {
+            return this.IsConnected() && !this.wrapper.inSale && this.ConnectedAddress == this.wrapper.owner?.address
+        }
     },
 
     methods: {
-        showModal() {
+        showBuyModal() {
             if (!this.modal) {
                 this.modal = new Modal(document.getElementById('placeBidModal'));
+            }
+            this.modal.show()
+        },
+
+        showSellModal() {
+            if (!this.modal) {
+                this.modal = new Modal(document.getElementById('sellModal'));
             }
             this.modal.show()
         },
@@ -194,6 +245,64 @@ export default {
                     this.$notify({
                         title: 'Error occurred',
                         text: 'Try to refresh the page and purchase again',
+                        type: 'error',
+                    });
+                })
+                .finally(() => {
+                    this.modal.hide();
+                })
+                
+            this.$notify({
+                title: 'Processing transaction',
+                text: 'Wait some time on this page',
+                duration: 20000
+            });
+        },
+
+        sell() {
+            const wallet = this.GetWallet();
+            if (!wallet) {
+                return;
+            }  
+
+            if (!this.sellData.amount || !['uluna', 'uusdd'].includes(this.sellData.coin.denom)) {
+                this.$notify({
+                    title: 'Select amount and coin',
+                    type: 'error',
+                });
+                return;
+            }
+
+            execRaw(wallet, this.contract, 
+                { 
+                    send_nft: {
+                        contract: "terra1uq0haxdf5cgg7s76frd3rtnr0trzaazyy00jqf",
+                        token_id: this.id,
+                        msg: Buffer.from(JSON.stringify({
+                            list_price: {
+                            denom: this.sellData.coin.denom,
+                            amount: Math.trunc(this.sellData.amount*1000000).toString(),
+                            }
+                        })).toString("base64")
+                    }
+                },
+                {},
+                new Fee(200000, { uluna: 10000})
+                )
+                .then(res => {
+                    console.log(res)
+                    this.$notify({
+                        title: 'Success!!',
+                        text: 'You successfully put ' + this.wrapper.info.name + ' on sale',
+                        type: 'success',
+                    });
+                    this.wrapper.load(true);
+                })
+                .catch(err => {
+                    console.log(err);
+                    this.$notify({
+                        title: 'Error occurred',
+                        text: 'Refresh the page and try again',
                         type: 'error',
                     });
                 })

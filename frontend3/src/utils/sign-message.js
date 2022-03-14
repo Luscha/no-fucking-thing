@@ -1,4 +1,4 @@
-export const signMessage = async (message, wallet) => {
+export const signMessage = async (wallet, message) => {
     if (!wallet) {
         throw new Error("wallet is required to sign a message")
     }

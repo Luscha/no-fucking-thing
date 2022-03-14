@@ -18,14 +18,10 @@
                     <div class="gap-2x"></div><!-- end gap-2x -->
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active" id="owned" role="tabpanel" aria-labelledby="owned-tab">
-                            <div class="row g-gs">
-                                <NftsContainer :nfts="owned" />
-                            </div><!-- row -->
+                            <ProfileOwned :address="address" :me="false" />
                         </div><!-- end tab-pane -->
                         <div class="tab-pane fade" id="on-sale" role="tabpanel" aria-labelledby="on-sale-tab">
-                            <div class="row g-gs">
-                                <ProductsContainer :products="offerings"></ProductsContainer>
-                            </div><!-- row -->
+                            <ProfileOffering :address="address" :me="false" />
                         </div><!-- end tab-pane -->
                     </div><!-- end tab-content -->
                 </div><!-- end author-items-wrap -->
@@ -36,28 +32,27 @@
 </template>
 
 <script>
-import { parseOffering } from '@/utils/nft-offer'
-import * as query from '@/contract/query'
-// import { NftWrapper } from '@/models/nft-wrapper';
 
-const LOAD_CHUNK = 20;
+import ProfileOwned from '@/components/ProfileOwned.vue';
+import ProfileOffering from '@/components/ProfileOffering.vue';
 
 export default {
   name: 'AuthorSection',
+
+components: {
+    ProfileOwned,
+    ProfileOffering
+  },
+
   props: {
     address: {
         type: String,
         required: true,
     },
-    me: {
-        type: Boolean,
-        required: true,
-    }
   },
 
   data () {
     return {
-      loading: false,
       tab: 1,
       sections: [
         {
@@ -76,63 +71,8 @@ export default {
           more: true,
         },
       ],
-      offerings: [],
-      owned: [],
-      ownedIDs: [],
-      collectionInfos: {},
     }
   },
-
-  methods: {
-    loadOfferings(start = undefined) {
-        query.query("marketplace", { offerings_by_owner: { owner: this.address, limit: LOAD_CHUNK, start_after: start } })
-        .then(res => {
-            this.offerings = this.offerings.concat(res.offerings.map(nft => (parseOffering(nft))));
-            this.sections[1].more = this.offerings.length == LOAD_CHUNK;
-        })
-        .finally(() => this.loading = false);
-    },
-
-    loadOwned(start = undefined) {
-        // TODO get all contracts addresses
-        query.query("gen0", { contract_info: {} })
-        .then(res => {
-            this.collectionInfos["gen0"] = res
-        })
-        .catch(err => console.log(err));
-
-        query.query("gen0", { tokens: { owner: this.address, limit: LOAD_CHUNK, start_after: start } })
-        .then(res => {
-            this.ownedIDs = this.ownedIDs.concat(res.tokens);
-            this.sections[0].more = res.tokens == LOAD_CHUNK;
-            this.owned = this.owned.concat(res.tokens.map(res => ({contractAddr: "terra1fn9wsg32jpdlz0n84w42fdf593u0tjlkcmjvqa", token_id: res})));
-        })
-        .finally(() => this.loading = false);
-    }
-  },
-
-  mounted() {
-    console.log("mounting")
-    this.loading = true;
-    this.loadOfferings();
-    this.loadOwned();
-
-    window.onscroll = () => {
-        if (this.loading) {
-            return;
-        }
-
-        let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight > document.documentElement.offsetHeight - 200;
-        if (this.sections[this.tab-1].more && bottomOfWindow) {
-            this.loading = true;
-            if (this.tab == 2) {
-                this.loadOfferings(this.offerings[this.offerings.length-1].id)
-            } else if (this.tab == 1) {
-                this.loadOwned(this.owned[this.owned.length-1].id)
-            }
-        }
-    }
-  }
 }
 </script>
 

@@ -17,7 +17,7 @@ export default {
       this.offerings = [];
     },
 
-    load(owner, start = undefined) {
+    loadOfferings(owner, start = undefined) {
       if (!owner) {
         return;
       }

@@ -265,7 +265,7 @@ export default {
                 return;
             }  
 
-            if (!this.sellData.amount || !['uluna', 'uusdd'].includes(this.sellData.coin.denom)) {
+            if (!this.sellData.amount || !['uluna', 'uusd'].includes(this.sellData.coin.denom)) {
                 this.$notify({
                     title: 'Select amount and coin',
                     type: 'error',

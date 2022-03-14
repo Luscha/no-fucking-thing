@@ -3,7 +3,7 @@
     :products="offerings" 
     :loading="loading" 
     :hasMore="hasMore"
-    :fullScreen="false"
+    :fullScreen="!me"
     @withdraw="withdraw"
     @more="more()"/>
 </template>
@@ -20,6 +20,10 @@ export default {
       type: String,
       required: true,
     },
+    me: {
+      type: Boolean,
+      default: true,
+    },
   },
 
   data () {
@@ -31,7 +35,7 @@ export default {
     'address': {
       handler(address) {
         this.clear(),
-        this.load(address);
+        this.loadOfferings(address);
       }
     }
   },
@@ -43,13 +47,13 @@ export default {
 
     more() {
       this.loading = true;
-      this.load(this.address, this.offerings[this.offerings.length-1].id);
+      this.loadOfferings(this.address, this.offerings[this.offerings.length-1].id);
     }
   },
 
   mounted() {
     this.loading = true;
-    this.load(this.address);
+    this.loadOfferings(this.address);
   }
 }
 </script>

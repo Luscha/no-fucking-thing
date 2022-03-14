@@ -1,6 +1,6 @@
 {
   "localterra": {
-    "gen0": {
+    "gen0-1": {
       "codeId": "10",
       "contractAddresses": {
         "default": "terra1fn9wsg32jpdlz0n84w42fdf593u0tjlkcmjvqa"
@@ -10,6 +10,12 @@
       "codeId": "12",
       "contractAddresses": {
         "default": "terra1uq0haxdf5cgg7s76frd3rtnr0trzaazyy00jqf"
+      }
+    },
+    "gen0": {
+      "codeId": "13",
+      "contractAddresses": {
+        "default": "terra17twkkz0xdr9kzcwptzs7ew8y8tw936twkhpmu8"
       }
     }
   }

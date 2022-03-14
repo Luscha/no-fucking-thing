@@ -28,6 +28,7 @@
     "@terra-money/terra.js": "^3.0.8",
     "@terra-money/wallet-types": "^3.8.0",
     "body-parser": "^1.18.2",
+    "cors": "^2.8.5",
     "dotenv": "^5.0.0",
     "express": "^4.16.2",
     "jscrypto": "^1.0.3",

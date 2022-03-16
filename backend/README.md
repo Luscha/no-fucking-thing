@@ -19,3 +19,9 @@ Run the project:
 ```
 $ npm run dev
 ```
+
+
+To generate the client
+```
+$ npx prisma generate dev
+```

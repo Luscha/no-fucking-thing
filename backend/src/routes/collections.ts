@@ -1,5 +1,5 @@
 import express from 'express'
-import { Prisma, PrismaClient } from '@prisma/client'
+import { Prisma, PrismaClient } from '@/generated/client'
 import { signedMessageOK } from '@/middlewares/signed-message'
 import { CW721OK } from '@/middlewares/cw721'
 import { CW721Info } from '@/contract/cw721'

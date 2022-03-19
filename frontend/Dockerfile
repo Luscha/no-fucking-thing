@@ -1,11 +1,15 @@
 # build stage
 FROM node:lts-alpine as build-stage
+
+RUN apk add --update --no-cache python3 make build-base && ln -sf python3 /usr/bin/python
+
 WORKDIR /app
 COPY package*.json ./
-RUN npm ci --only=production
+RUN npm ci
 COPY . .
 # Set environment variables
 ENV NODE_ENV production
+
 RUN npm run build
 
 # production stage

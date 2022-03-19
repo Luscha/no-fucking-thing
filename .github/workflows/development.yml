@@ -62,7 +62,7 @@ jobs:
         run: |-
           helm upgrade no-fucking-thing-frontend ./frontend/helm/no-fucking-thing-frontend  \
             --install \
-            --values    helm/no-fucking-thing-frontend.yaml \
-            --values    helm/no-fucking-thing-frontend.${{ env.ENVIRONMENT }}.yaml \
+            --values    frontend/helm/no-fucking-thing-frontend.yaml \
+            --values    frontend/helm/no-fucking-thing-frontend.${{ env.ENVIRONMENT }}.yaml \
             --set       image.tag=${{ github.sha }} \
             --namespace ${{ env.ENVIRONMENT }}

@@ -5,21 +5,16 @@ env:
   ENVIRONMENT: development
 
   # Google Cloud Credentials
-  PROJECT_ID:             ${{ secrets.TIER_2_SERVICES_PROJECT }}
-  KUBERNETES_CREDENTIALS: ${{ secrets.TIER_2_SERVICES_KUBERNETES_CREDENTIALS }}
-  REGISTRY_CREDENTIALS:   ${{ secrets.TIER_2_SERVICES_REGISTRY_CREDENTIALS }}
+  PROJECT_ID:             ${{ secrets.PROJECT_ID }}
+  KUBERNETES_CREDENTIALS: ${{ secrets.KUBERNETES_CREDENTIALS }}
+  REGISTRY_CREDENTIALS:   ${{ secrets.REGISTRY_CREDENTIALS }}
 
-  US_CLUSTER: ${{ secrets.TIER_2_SERVICES_US_CLUSTER }}
-  US_ZONE:    ${{ secrets.TIER_2_SERVICES_US_ZONE }}
+  EU_CLUSTER: ${{ secrets.EU_CLUSTER }}
+  EU_ZONE:    ${{ secrets.EU_ZONE }}
 
 on:
   push:
     branches-ignore: [master]
-  workflow_dispatch:
-    inputs:
-      sha:
-        description: "SHA of the commit that triggered this workflow"
-        required: true
 
 jobs:
   build:
@@ -35,9 +30,9 @@ jobs:
           username: _json_key
           password: ${{ env.REGISTRY_CREDENTIALS }}
           registry: gcr.io
-          repository: ${{ env.PROJECT_ID }}/web-ui/platform
+          repository: ${{ env.PROJECT_ID }}/nft/no-fucking-thing-frontend
           tags: latest,${{ github.sha }}
-          dockerfile: Dockerfile.development
+          dockerfile: frontend/Dockerfile
           tag_with_ref: true
           tag_with_sha: true
 
@@ -58,16 +53,16 @@ jobs:
           service_account_key: ${{ env.KUBERNETES_CREDENTIALS }}
           project_id: ${{ env.PROJECT_ID }}
 
-      - name: Authenticate to kubernetes (US)
+      - name: Authenticate to kubernetes (EU)
         run: |-
           gcloud --quiet auth configure-docker
-          gcloud container clusters get-credentials "$US_CLUSTER" --zone "$US_ZONE"
+          gcloud container clusters get-credentials "$EU_CLUSTER" --zone "$EU_ZONE"
 
       - name: Install or upgrade the Helm chart
         run: |-
-          helm upgrade platform ./helm/charts/web-ui  \
+          helm upgrade no-fucking-thing-frontend ./frontend/helm/no-fucking-thing-frontend  \
             --install \
-            --values    helm/platform.yaml \
-            --values    helm/platform.${{ env.ENVIRONMENT }}.yaml \
+            --values    helm/no-fucking-thing-frontend.yaml \
+            --values    helm/no-fucking-thing-frontend.${{ env.ENVIRONMENT }}.yaml \
             --set       image.tag=${{ github.sha }} \
-            --namespace web-ui
+            --namespace ${{ env.ENVIRONMENT }}

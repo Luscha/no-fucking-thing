@@ -1,52 +1,59 @@
 {
-  "name": "my-terra-dapp-frontend",
-  "version": "0.1.0",
+  "name": "EnftyMartVue",
+  "version": "1.0.0",
   "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "test": ""
+  },
   "dependencies": {
-    "@terra-money/terra.js": "^2.0.15",
-    "@terra-money/wallet-provider": "^2.3.0",
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^11.2.7",
-    "@testing-library/user-event": "^12.8.3",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-scripts": "^4.0.3",
-    "web-vitals": "^1.1.2"
+    "@kyvg/vue3-notification": "^2.3.4",
+    "@popperjs/core": "^2.10.2",
+    "@terra-money/terra.js": "^3.0.7",
+    "@terra-money/wallet-provider": "^3.8.0",
+    "@vueuse/head": "^0.7.5",
+    "bootstrap": "^5.1.3",
+    "core-js": "^3.6.5",
+    "rxjs": "^7.5.4",
+    "swiper": "^6.8.4",
+    "v-pagination-3": "^0.1.7",
+    "vue": "^3.2.24",
+    "vue-router": "^4.0.12",
+    "vue-select": "^4.0.0-beta.1",
+    "vue-tel-input": "^5.6.3",
+    "vue3-clipboard": "^1.0.0"
   },
   "devDependencies": {
-    "eslint": "^7.32.0",
-    "eslint-config-airbnb": "^18.2.1",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-config-react-app": "^6.0.0",
-    "eslint-plugin-import": "^2.25.2",
-    "eslint-plugin-jsx-a11y": "^6.4.1",
-    "eslint-plugin-prettier": "^3.4.1",
-    "eslint-plugin-react": "^7.26.1",
-    "eslint-plugin-react-hooks": "^4.2.0"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "lint": "eslint src"
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "@vue/compiler-sfc": "^3.0.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^7.0.0",
+    "sass": "^1.43.4",
+    "sass-loader": "^10.2.0",
+    "vue-update": "^1.0.6"
   },
   "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
     "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
+      "plugin:vue/vue3-essential",
+      "eslint:recommended"
     ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  }
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
+    "rules": {}
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
 }

@@ -1,0 +1,10 @@
+# Values strictly related to the [production] environment.
+
+# Set all environment variables required to run the ui.
+env:
+  - name: NEXT_PUBLIC_RESTAPI_ENDPOINT
+    value: https://crossrefs.animeshon.com/apis
+
+certificate:
+  enabled: true
+  domains: [waifu.chat]

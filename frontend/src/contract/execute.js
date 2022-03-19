@@ -7,25 +7,35 @@ const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const until = Date.now() + 1000 * 60 * 60;
 const untilInterval = Date.now() + 1000 * 60;
 
+export const exec = (wallet, contract, msg, coins = undefined, fee = new Fee(200000, { uluna: 10000 })) => {
+  return _exec(contractAdress(wallet.network.chainID, contract), msg, coins, fee)(wallet)
+}
+
+export const execRaw = (wallet, contract, msg, coins = undefined, fee = new Fee(200000, { uluna: 10000 })) => {
+  return _exec(contract, msg, coins, fee)(wallet)
+}
+
 const _exec =
-  (msg, fee = new Fee(200000, { uluna: 10000 })) =>
+  (contract, msg, coins = undefined, fee = new Fee(200000, { uluna: 10000 })) =>
   async (wallet) => {
     const lcd = new LCDClient({
       URL: wallet.network.lcd,
       chainID: wallet.network.chainID,
     });
-
+    
     const { result } = await wallet.post({
       fee,
       msgs: [
         new MsgExecuteContract(
           wallet.walletAddress,
-          contractAdress(wallet),
-          msg
+          contract,
+          msg,
+          coins
         ),
       ],
     });
-
+    
+    /* eslint-disable no-constant-condition */
     while (true) {
       try {
         return await lcd.tx.txInfo(result.txhash);
@@ -42,10 +52,3 @@ const _exec =
       }
     }
   };
-
-// ==== execute contract ====
-
-export const increment = _exec({ increment: {} });
-
-export const reset = async (wallet, count) =>
-  _exec({ reset: { count } })(wallet);

@@ -26,13 +26,14 @@ jobs:
 
       - name: Build and push Docker images to Google Cloud Registry
         uses: docker/build-push-action@v1
+        working-directory: frontend
         with:
           username: _json_key
           password: ${{ env.REGISTRY_CREDENTIALS }}
           registry: gcr.io
           repository: ${{ env.PROJECT_ID }}/nft/no-fucking-thing-frontend
           tags: latest,${{ github.sha }}
-          dockerfile: frontend/Dockerfile
+          dockerfile: Dockerfile
           tag_with_ref: true
           tag_with_sha: true
 

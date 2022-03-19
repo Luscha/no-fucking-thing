@@ -1,1 +1,4 @@
 fullnameOverride: "no-fucking-thing-frontend"
+
+service:
+  type: NodePort

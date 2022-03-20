@@ -81,6 +81,8 @@ tolerations: []
 
 affinity: {}
 
+env: []
+
 certificate:
   enabled: false
   domains: []

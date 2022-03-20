@@ -1,4 +1,25 @@
 fullnameOverride: "no-fucking-thing-backend"
 
+env:
+  - name: DATABASE_URL
+    value: "file:/data/sqlite.db"
+
+init:
+  create: true
+  args: 
+    - npx 
+    - prisma 
+    - migrate 
+    - deploy 
+    - --schema=/app/prisma/schema.prisma
+  env: 
+    - name: DATABASE_URL
+      value: "file:/data/sqlite.db"
+
 service:
   type: NodePort
+
+persistence:
+  enabled: true
+  size: 2Gi
+  storageClass: premium-rwo

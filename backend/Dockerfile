@@ -25,8 +25,6 @@ COPY tsconfig.json ./
 COPY package*.json ./
 RUN npm ci
 
-ENV DATABASE_URL "file:./prod.db"
-
 COPY --from=build-stage /app/build /app
 COPY --from=build-stage /app/src/generated/ /app/src/generated/
 COPY --from=build-stage /app/prisma/ /app/prisma/

@@ -56,6 +56,16 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
+init:
+  # Specifies whether an init container should be created
+  create: false
+  # The arguments to be passed to the init container
+  args: [ version ]
+  # The resources limits and requests
+  resources: {}
+  # The environment variables
+  env: []
+
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
@@ -67,6 +77,15 @@ resources: {}
   # requests:
   #   cpu: 100m
   #   memory: 128Mi
+
+persistence:
+  enabled: false
+  labels: {}
+  annotations: {}
+  storageClass: "-"
+  accessModes:
+    - ReadWriteOnce
+  size: 8Gi
 
 autoscaling:
   enabled: false

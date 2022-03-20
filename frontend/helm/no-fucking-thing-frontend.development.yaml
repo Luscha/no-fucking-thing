@@ -5,14 +5,14 @@ env:
 
 ingress:
   enabled: true
-  className: "gce"
+  # className: "gce"
   annotations: 
     kubernetes.io/ingress.global-static-ip-name: "kubernetes-default-lb"
     # networking.gke.io/managed-certificates: "no-fucking-thing-frontend-tls-cert"
   hosts:
-    - host: insider.waifu.chat
+    - #host: insider.waifu.chat
       paths:
-        - path: /
+        - path: /*
           pathType: ImplementationSpecific
 
 # certificate:

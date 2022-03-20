@@ -1,0 +1,68 @@
+name: No Fucking Thing [development]
+
+env:
+  # Environment
+  ENVIRONMENT: development
+
+  # Google Cloud Credentials
+  PROJECT_ID:             ${{ secrets.PROJECT_ID }}
+  KUBERNETES_CREDENTIALS: ${{ secrets.KUBERNETES_CREDENTIALS }}
+  REGISTRY_CREDENTIALS:   ${{ secrets.REGISTRY_CREDENTIALS }}
+
+  EU_CLUSTER: ${{ secrets.EU_CLUSTER }}
+  EU_ZONE:    ${{ secrets.EU_ZONE }}
+
+on:
+  push:
+    branches-ignore: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clone the repository code
+        uses: actions/checkout@v2
+
+      - name: Build and push Docker images to Google Cloud Registry
+        uses: docker/build-push-action@v1
+        with:
+          username: _json_key
+          password: ${{ env.REGISTRY_CREDENTIALS }}
+          registry: gcr.io
+          repository: ${{ env.PROJECT_ID }}/nft/no-fucking-thing-backend
+          tags: latest,${{ github.sha }}
+          path: backend
+          tag_with_ref: true
+          tag_with_sha: true
+
+  deployment:
+    needs: [build]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clone the repository code
+        uses: actions/checkout@v2
+
+      - uses: azure/setup-kubectl@v1
+      - uses: azure/setup-helm@v1
+
+      - name: Install and configure Google Cloud CLI
+        uses: google-github-actions/setup-gcloud@master
+        with:
+          service_account_key: ${{ env.KUBERNETES_CREDENTIALS }}
+          project_id: ${{ env.PROJECT_ID }}
+
+      - name: Authenticate to kubernetes (EU)
+        run: |-
+          gcloud --quiet auth configure-docker
+          gcloud container clusters get-credentials "$EU_CLUSTER" --zone "$EU_ZONE"
+
+      - name: Install or upgrade the Helm chart
+        run: |-
+          helm upgrade no-fucking-thing-backend ./backend/helm/no-fucking-thing-backend  \
+            --install \
+            --values    backend/helm/no-fucking-thing-backend.yaml \
+            --values    backend/helm/no-fucking-thing-backend.${{ env.ENVIRONMENT }}.yaml \
+            --set       image.tag=${{ github.sha }} \
+            --namespace ${{ env.ENVIRONMENT }}

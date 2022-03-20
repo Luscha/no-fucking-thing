@@ -1,0 +1,4 @@
+fullnameOverride: "no-fucking-thing-backend"
+
+service:
+  type: NodePort

@@ -1,0 +1,19 @@
+# Set all environment variables required to run the ui.
+env:
+  - name: NEXT_PUBLIC_RESTAPI_ENDPOINT
+    value: https://crossrefs.animeshon.dev/apis
+
+ingress:
+  enabled: true
+  annotations: 
+    kubernetes.io/ingress.global-static-ip-name: "kubernetes-default-lb"
+    networking.gke.io/managed-certificates: "no-fucking-thing-backend-tls-cert"
+  hosts:
+    - host: apis.insider.waifu.chat
+      paths:
+        - path: /*
+          pathType: ImplementationSpecific
+
+certificate:
+  enabled: true
+  domains: [insider.waifu.chat]

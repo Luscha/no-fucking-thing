@@ -57,8 +57,8 @@ ingress:
   #      - chart-example.local
 
 init:
-  # Specifies whether an init container should be created
-  create: false
+  # Specifies whether an init container should be invoked
+  enabled: false
   # The arguments to be passed to the init container
   args: [ version ]
   # The resources limits and requests

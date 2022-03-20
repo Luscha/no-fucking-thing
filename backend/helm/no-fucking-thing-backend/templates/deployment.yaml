@@ -31,7 +31,6 @@ spec:
       initContainers:
         - name: {{ .Chart.Name }}-init
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          command: [ "animeapis" ]
           {{- with .Values.init.args }}
           args:
             {{- toYaml . | nindent 10 }}

@@ -16,4 +16,4 @@ ingress:
 
 certificate:
   enabled: true
-  domains: [insider.waifu.chat]
+  domains: [apis.insider.waifu.chat]

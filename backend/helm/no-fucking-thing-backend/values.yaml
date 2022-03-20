@@ -36,11 +36,12 @@ securityContext: {}
   # runAsNonRoot: true
   # runAsUser: 1000
 
-containers: 
-  ports: 
-    - name: http
-      containerPort: 3000
-      protocol: TCP
+deployment:
+  containers: 
+    ports: 
+      - name: http
+        containerPort: 3000
+        protocol: TCP
 
 service:
   type: ClusterIP

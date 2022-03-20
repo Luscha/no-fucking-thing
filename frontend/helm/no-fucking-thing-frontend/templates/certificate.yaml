@@ -4,7 +4,7 @@ kind: ManagedCertificate
 metadata:
   name: {{ include "no-fucking-thing-frontend.fullname" . }}-tls-cert
   annotations:
-    "helm.sh/hook": pre-install
+    "helm.sh/hook-weight": "-1"
 spec:
   {{- with .Values.certificate.domains }}
     domains:

@@ -7,13 +7,13 @@ ingress:
   enabled: true
   annotations: 
     kubernetes.io/ingress.global-static-ip-name: "kubernetes-default-lb"
-    # networking.gke.io/managed-certificates: "no-fucking-thing-frontend-tls-cert"
+    networking.gke.io/managed-certificates: "no-fucking-thing-frontend-tls-cert"
   hosts:
     - host: insider.waifu.chat
       paths:
         - path: /*
           pathType: ImplementationSpecific
 
-# certificate:
-#   enabled: true
-#   domains: [insider.waifu.chat]
+certificate:
+  enabled: true
+  domains: [insider.waifu.chat]

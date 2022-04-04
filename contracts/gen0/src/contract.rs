@@ -5,7 +5,7 @@ use cosmwasm_std::{
     Coin, StdError
 };
 
-use cw2::{set_contract_version/*, get_contract_version*/};
+use cw2::{set_contract_version, get_contract_version};
 use cw721::{
     Cw721ReceiveMsg, Expiration,
 };
@@ -23,21 +23,19 @@ const CONTRACT_NAME: &str = "crates.io:nft-gen0";
 const CONTRACT_VERSION: &str = env!("CARGO_PKG_VERSION");
 
 #[entry_point]
-pub fn migrate(_deps: DepsMut, _env: Env, _msg: MigrateMsg) -> Result<Response, ContractError> {
-    // TODO undestand how to proper set & get version of base and destination contract
+pub fn migrate(deps: DepsMut, _env: Env, _msg: MigrateMsg) -> Result<Response, ContractError> {
+    let ver = get_contract_version(deps.storage)?;
+    // ensure we are migrating from an allowed contract
+    if ver.contract != CONTRACT_NAME {
+        return Err(StdError::generic_err("Can only upgrade from same type").into());
+    }
+    // note: better to do proper semver compare, but string compare *usually* works
+    if ver.version >= CONTRACT_VERSION.to_string() {
+        return Err(StdError::generic_err(format!("Cannot upgrade from a newer version {} -> {}", ver.version, CONTRACT_VERSION.to_string())).into());
+    }
 
-    // let ver = get_contract_version(deps.storage)?;
-    // // ensure we are migrating from an allowed contract
-    // if ver.contract != CONTRACT_NAME {
-    //     return Err(StdError::generic_err("Can only upgrade from same type").into());
-    // }
-    // // note: better to do proper semver compare, but string compare *usually* works
-    // if ver.version >= CONTRACT_VERSION.to_string() {
-    //     return Err(StdError::generic_err(format!("Cannot upgrade from a newer version {} -> {}", ver.version, CONTRACT_VERSION.to_string())).into());
-    // }
-
-    // // set the new version
-    // set_contract_version(deps.storage, CONTRACT_NAME, CONTRACT_VERSION)?;
+    // set the new version
+    set_contract_version(deps.storage, CONTRACT_NAME, CONTRACT_VERSION)?;
 
     // do any desired state migrations...
 

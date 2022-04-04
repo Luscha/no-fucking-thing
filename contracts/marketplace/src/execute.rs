@@ -13,26 +13,26 @@ use cw_asset::{AssetUnchecked, Asset};
 use crate::error::ContractError;
 use crate::msg::{ExecuteMsg, InstantiateMsg, SellNft, MigrateMsg};
 
-use cw2::{set_contract_version/*, get_contract_version*/};
+use cw2::{set_contract_version, get_contract_version};
 
 // version info for migration info
 const CONTRACT_NAME: &str = "crates.io:nft-marketplace";
 const CONTRACT_VERSION: &str = env!("CARGO_PKG_VERSION");
 
 #[entry_point]
-pub fn migrate(_deps: DepsMut, _env: Env, _msg: MigrateMsg) -> Result<Response, ContractError> {
-    // let ver = get_contract_version(deps.storage)?;
-    // // ensure we are migrating from an allowed contract
-    // if ver.contract != CONTRACT_NAME {
-    //     return Err(StdError::generic_err("Can only upgrade from same type").into());
-    // }
-    // // note: better to do proper semver compare, but string compare *usually* works
-    // if ver.version >= CONTRACT_VERSION.to_string() {
-    //     return Err(StdError::generic_err("Cannot upgrade from a newer version").into());
-    // }
+pub fn migrate(deps: DepsMut, _env: Env, _msg: MigrateMsg) -> Result<Response, ContractError> {
+    let ver = get_contract_version(deps.storage)?;
+    // ensure we are migrating from an allowed contract
+    if ver.contract != CONTRACT_NAME {
+        return Err(StdError::generic_err("Can only upgrade from same type").into());
+    }
+    // note: better to do proper semver compare, but string compare *usually* works
+    if ver.version >= CONTRACT_VERSION.to_string() {
+        return Err(StdError::generic_err("Cannot upgrade from a newer version").into());
+    }
 
-    // // set the new version
-    // set_contract_version(deps.storage, CONTRACT_NAME, CONTRACT_VERSION)?;
+    // set the new version
+    set_contract_version(deps.storage, CONTRACT_NAME, CONTRACT_VERSION)?;
 
     // do any desired state migrations...
 

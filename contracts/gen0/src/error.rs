@@ -14,4 +14,13 @@ pub enum ContractError {
 
     #[error("Cannot set approval that is already expired")]
     Expired {},
+
+    #[error("no more tokens available")]
+    SoldOut {},
+
+    #[error("wrong coin")]
+    WrongCoin {},
+
+    #[error("Insufficient funds")]
+    InsufficientFunds {},
 }

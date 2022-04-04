@@ -4,8 +4,8 @@
   "description": "",
   "private": true,
   "scripts": {
-    "deploy:marketplace": "terrain deploy marketplace --signer=validator",
-    "deploy:gen0": "terrain deploy gen0 --signer=validator",
+    "deploy:marketplace": "terrain deploy marketplace --signer=validator --set-signer-as-admin",
+    "deploy:gen0": "terrain deploy gen0 --signer=validator --set-signer-as-admin",
     "sync-refs": "terrain sync-refs --dest=./frontend/src/refs.terrain.json"
   },
   "dependencies": {

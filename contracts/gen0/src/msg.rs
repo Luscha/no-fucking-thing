@@ -1,19 +1,25 @@
-use cosmwasm_std::Binary;
-use cw721::Expiration;
+use cosmwasm_std::{Binary, Coin};
+use cw721::{Expiration, OwnerOfResponse};
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
 
+/// The sender will be set as owner of the contract
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
 pub struct InstantiateMsg {
     /// Name of the NFT contract
     pub name: String,
     /// Symbol of the NFT contract
     pub symbol: String,
-
-    /// The minter is the only one who can create new NFTs.
-    /// This is designed for a base NFT that is controlled by an external program
-    /// or contract. You will likely replace this with custom logic in custom NFTs
-    pub minter: String,
+    /// Max number of mintable NFTs
+    pub max_tokens: u64,
+    /// Base token uri
+    pub token_uri: String,
+    /// Treasury address
+    pub treasury: String,
+    /// Denom of the coin needed to mint a token
+    pub minting_price_denom: String,
+    /// Amount of the coin needed to mint a token
+    pub minting_price_amount: u64,
 }
 
 /// This is like Cw721ExecuteMsg but we add a Mint command for an owner
@@ -24,6 +30,7 @@ pub struct InstantiateMsg {
 pub enum ExecuteMsg {
     /// Transfer is a base message to move a token to another account without triggering actions
     TransferNft { recipient: String, token_id: String },
+
     /// Send is a base message to transfer a token to a contract and trigger an action
     /// on the receiving contract.
     SendNft {
@@ -31,6 +38,7 @@ pub enum ExecuteMsg {
         token_id: String,
         msg: Binary,
     },
+
     /// Allows operator to transfer / send the token from the owner's account.
     /// If expiration is set, then this allowance has a time/height limit
     Approve {
@@ -38,14 +46,17 @@ pub enum ExecuteMsg {
         token_id: String,
         expires: Option<Expiration>,
     },
+
     /// Remove previously granted Approval
     Revoke { spender: String, token_id: String },
+
     /// Allows operator to transfer / send any token from the owner's account.
     /// If expiration is set, then this allowance has a time/height limit
     ApproveAll {
         operator: String,
         expires: Option<Expiration>,
     },
+    
     /// Remove previously granted ApproveAll permission
     RevokeAll { operator: String },
 
@@ -53,18 +64,14 @@ pub enum ExecuteMsg {
     Mint(MintMsg),
 }
 
+// TODO PAYMENT
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
 pub struct MintMsg {
-    /// Unique ID of the NFT
-    pub token_id: String,
-    /// The owner of the newly minter NFT
+    /// The owner of the newly minted NFT
     pub owner: String,
-    /// Identifies the asset to which this NFT represents
-    pub name: String,
-    /// Describes the asset to which this NFT represents (may be empty)
-    pub description: Option<String>,
-    /// A URI pointing to an image representing the asset
-    pub image: Option<String>,
+
+    /// Payment for the minting to forward to the treasury
+    pub payment: Option<Coin>,
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
@@ -97,14 +104,16 @@ pub enum QueryMsg {
     /// With MetaData Extension.
     /// Returns top-level metadata about the contract: `ContractInfoResponse`
     ContractInfo {},
+
     /// With MetaData Extension.
     /// Returns metadata about one particular token, based on *ERC721 Metadata JSON Schema*
     /// but directly from the contract: `NftInfoResponse`
     NftInfo {
         token_id: String,
     },
+
     /// With MetaData Extension.
-    /// Returns the result of both `NftInfo` and `OwnerOf` as one query as an optimization
+    /// Returns the result of both `TokenURI` and `OwnerOf` as one query as an optimization
     /// for clients: `AllNftInfo`
     AllNftInfo {
         token_id: String,
@@ -120,6 +129,7 @@ pub enum QueryMsg {
         start_after: Option<String>,
         limit: Option<u32>,
     },
+
     /// With Enumerable extension.
     /// Requires pagination. Lists all token_ids controlled by the contract.
     /// Return type: TokensResponse.
@@ -127,13 +137,36 @@ pub enum QueryMsg {
         start_after: Option<String>,
         limit: Option<u32>,
     },
-
-    // Return the minter
-    Minter {},
 }
 
-/// Shows who can mint these tokens
+/// Info of the contract
 #[derive(Serialize, Deserialize, Clone, PartialEq, JsonSchema, Debug)]
-pub struct MinterResponse {
+pub struct ContractInfoResponse {
     pub minter: String,
+    pub treasury: String,
+    pub max_tokens: u64,
+    pub name: String,
+    pub symbol: String,
+    pub token_uri: String,
+    pub minting_price_denom: String,
+    pub minting_price_amount: u64,
 }
+
+#[derive(Serialize, Deserialize, Clone, PartialEq, JsonSchema, Debug)]
+pub struct NftInfoResponse {
+    /// Universal resource identifier for this NFT
+    /// Should point to a JSON file that conforms to the ERC721
+    /// Metadata JSON Schema
+    pub token_uri: Option<String>,
+}
+
+#[derive(Serialize, Deserialize, Clone, PartialEq, JsonSchema, Debug)]
+pub struct AllNftInfoResponse {
+    /// Who can transfer the token
+    pub access: OwnerOfResponse,
+    /// Data on the token itself,
+    pub info: NftInfoResponse,
+}
+
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
+pub struct MigrateMsg {}

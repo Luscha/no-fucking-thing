@@ -17,9 +17,6 @@
           }
         },
         "instantiateMsg": {
-          "name": "test",
-          "symbol": "TST",
-          "minter": "terra1x46rqay4d3cssq8gxxvqz8xt6nwlz4td20k38v"
         }
       }
     },
@@ -32,10 +29,16 @@
           }
         }
       },
-      "instantiateMsg": {
-        "name": "test",
-        "symbol": "TST",
-        "minter": "terra1x46rqay4d3cssq8gxxvqz8xt6nwlz4td20k38v"
+      "instantiation": {
+        "instantiateMsg": {
+          "name": "test2",
+          "symbol": "TS2",
+          "treasury": "terra1x46rqay4d3cssq8gxxvqz8xt6nwlz4td20k38v",
+          "max_tokens": 10,
+          "token_uri": "ipfs://test",
+          "minting_price_denom": "uusd",
+          "minting_price_amount": 100000
+        }
       }
     },
     "marketplace": {
@@ -47,8 +50,10 @@
           }
         }
       },
-      "instantiateMsg": {
-        "name": "marketplace-test"
+      "instantiation": {
+        "instantiateMsg": {
+          "name": "marketplace-test"
+        }
       }
     }
   },

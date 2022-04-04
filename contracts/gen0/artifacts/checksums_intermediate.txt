@@ -1,1 +1,1 @@
-b92e6a7c404509c65ebe05197e671928ccb8c65f75a11f80f1b4d52e1a66aa06  ./target/wasm32-unknown-unknown/release/gen0.wasm
+bf5260361605cd70c66589c7d222cb7c29d6ed58d165dc299f94ebe50bc1921d  ./target/wasm32-unknown-unknown/release/gen0.wasm

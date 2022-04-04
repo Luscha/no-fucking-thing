@@ -48,3 +48,6 @@ pub enum QueryMsg {
         token_id: String,
     },
 }
+
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
+pub struct MigrateMsg {}

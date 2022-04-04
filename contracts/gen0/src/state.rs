@@ -2,22 +2,29 @@ use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
 
 use cosmwasm_std::{Addr, BlockInfo, StdResult, Storage};
-use cw721::{ContractInfoResponse, Expiration};
+use cw721::{Expiration};
 use cw_storage_plus::{Index, IndexList, IndexedMap, Item, Map, MultiIndex};
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
 pub struct TokenInfo {
     /// The owner of the newly minted NFT
     pub owner: Addr,
+    /// The relative uri of the token
+    pub token_uri: String,
     /// Approvals are stored here, as we clear them all upon transfer and cannot accumulate much
     pub approvals: Vec<Approval>,
+}
 
-    /// Identifies the asset to which this NFT represents
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
+pub struct Config {
+    pub owner: Addr,
+    pub treasury: Addr,
+    pub max_tokens: u64,
     pub name: String,
-    /// Describes the asset to which this NFT represents
-    pub description: String,
-    /// A URI pointing to an image representing the asset
-    pub image: Option<String>,
+    pub symbol: String,
+    pub token_uri: String,
+    pub minting_price_denom: String,
+    pub minting_price_amount: u64,
 }
 
 #[derive(Serialize, Deserialize, Clone, PartialEq, JsonSchema, Debug)]
@@ -34,8 +41,7 @@ impl Approval {
     }
 }
 
-pub const CONTRACT_INFO: Item<ContractInfoResponse> = Item::new("nft_info");
-pub const MINTER: Item<Addr> = Item::new("minter");
+pub const CONFIG: Item<Config> = Item::new("config");
 pub const TOKEN_COUNT: Item<u64> = Item::new("num_tokens");
 
 // Stored as (granter, operator) giving operator full control over granter's account

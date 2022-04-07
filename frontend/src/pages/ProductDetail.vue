@@ -35,8 +35,8 @@
                                                 <img :src="wrapper.minter.avatar" alt="avatar">
                                             </router-link>
                                             <div v-if="wrapper.minter.address" class="card-media-body">
-                                                <router-link :to="'/profile/'+wrapper.minter.address" class="fw-semibold">{{ trunc(wrapper.minter.address, 18) }}</router-link>
                                                 <p class="fw-medium small">Minter</p>
+                                                <router-link :to="'/profile/'+wrapper.minter.address" class="fw-semibold">{{ trunc(wrapper.minter.address, 18) }}</router-link>
                                             </div>
                                         </div><!-- end card -->
                                     </div><!-- end col-->
@@ -46,8 +46,8 @@
                                                 <img :src="wrapper.collection.avatar" alt="avatar">
                                             </router-link>
                                             <div class="card-media-body">
-                                                <router-link :to="'/collections/'+contract" class="fw-semibold">{{ wrapper.collection.name }}</router-link>
                                                 <p class="fw-medium small">Collection</p>
+                                                <router-link :to="'/collections/'+contract" class="fw-semibold">{{ wrapper.collection.name }}</router-link>
                                             </div>
                                         </div><!-- end card -->
                                     </div><!-- end col-->
@@ -57,8 +57,8 @@
                                                 <img :src="item.avatar" alt="avatar">
                                             </router-link>
                                             <div class="card-media-body">
-                                                <router-link :to="'/profile/'+wrapper.owner.address" class="fw-semibold">{{ wrapper.owner.address }}</router-link>
                                                 <p class="fw-medium small">Owner</p>
+                                                <router-link :to="'/profile/'+wrapper.owner.address" class="fw-semibold">{{ wrapper.owner.address }}</router-link>
                                             </div>
                                         </div><!-- end card -->
                                     </div><!-- end col-->

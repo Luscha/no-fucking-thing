@@ -51,11 +51,6 @@ export class NftWrapper {
         query.query(this.contract, { contract_info: {} })
         .then(res => {
             this.collection = res
-        })
-        .catch(err => console.log(err));
-
-        query.query(this.contract, { minter: {} })
-        .then(res => {
             this.minter = {address: res.minter}
         })
         .catch(err => console.log(err));

@@ -104,11 +104,9 @@ export default {
       query.query(GEN0_ADDRESS, { contract_info: { } }).then(res => {
         this.gen0Info = {...this.gen0Info, ...res};
         this.gen0Info.humanPrice = `${res.minting_price_amount/1000000} ${denom[res.minting_price_denom]}`
-        console.log(this.gen0Info)
       });
       query.query(GEN0_ADDRESS, { num_tokens: { } }).then(res => {
         this.gen0Info.issued = res.count;
-        console.log(this.gen0Info)
       });
     },
 

@@ -29,7 +29,6 @@ export default {
         response.data.forEach(c => {
           this.collectionInfos.push({address: c.contractAddress, minter: c.minter, name: c.name})
         });
-        console.log(this.collectionInfos)
       }).catch(err => console.log(err))
     },
 

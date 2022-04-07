@@ -226,8 +226,7 @@ export default {
                 },
                 coins,
                 )
-                .then(res => {
-                    console.log(res)
+                .then(() => {
                     this.$notify({
                         title: 'Success!!',
                         text: 'You successfully purchased ' + this.wrapper.info.name,
@@ -283,8 +282,7 @@ export default {
                 },
                 {},
                 )
-                .then(res => {
-                    console.log(res)
+                .then(() => {
                     this.$notify({
                         title: 'Success!!',
                         text: 'You successfully put ' + this.wrapper.info.name + ' on sale',

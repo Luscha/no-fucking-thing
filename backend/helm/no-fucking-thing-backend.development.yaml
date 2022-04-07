@@ -14,10 +14,6 @@ env:
     value: "https://bombay-lcd.terra.dev"
   - name: CHAIN_ID
     value: "bombay-12"
-  - name: PORT
-    value: "8080"
-  - name: HOST
-    value: "0.0.0.0"
 
 certificate:
   enabled: true

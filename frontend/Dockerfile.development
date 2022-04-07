@@ -7,10 +7,8 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci
 COPY . .
-# Set environment variables
-ENV NODE_ENV development
 
-RUN npm run build
+RUN npm run build --mode development
 
 # production stage
 FROM nginx:stable-alpine as production-stage

@@ -35,6 +35,7 @@ jobs:
           path: frontend
           tag_with_ref: true
           tag_with_sha: true
+          file: Dockerfile.development
 
   deployment-frontend:
     needs: [build-frontend]

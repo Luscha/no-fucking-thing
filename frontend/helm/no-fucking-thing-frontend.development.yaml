@@ -1,15 +1,15 @@
 # Set all environment variables required to run the ui.
 env:
   - name: NETWORK_URL
-    value: https://bombay-lcd.terra.dev
+    value: "https://bombay-lcd.terra.dev"
   - name: CHAIN_ID
-    value: bombay-12
+    value: "bombay-12"
   - name: MARKETPLACE_ADDRESS
-    value: terra18yk3tzwkrte5jnmwuru3ht3tjxk7uysc7kksxy
+    value: "terra18yk3tzwkrte5jnmwuru3ht3tjxk7uysc7kksxy"
   - name: GEN0_ADDRESS
-    value: terra1c58xptzpcwrz79qa50m67fr77zehyhfs0hpg7m
+    value: "terra1c58xptzpcwrz79qa50m67fr77zehyhfs0hpg7m"
   - name: BACKEND_REST_API_ENDPOINT
-    value: apis.insider.waifu.chat
+    value: "apis.insider.waifu.chat"
 
 ingress:
   enabled: true

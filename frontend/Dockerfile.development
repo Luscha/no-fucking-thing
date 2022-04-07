@@ -8,7 +8,7 @@ COPY package*.json ./
 RUN npm ci
 COPY . .
 
-RUN npm run build --mode development
+RUN npm run build-dev
 
 # production stage
 FROM nginx:stable-alpine as production-stage

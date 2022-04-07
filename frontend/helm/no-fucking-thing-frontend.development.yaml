@@ -1,14 +1,14 @@
 # Set all environment variables required to run the ui.
 env:
-  - name: NETWORK_URL
+  - name: VUE_APP_NETWORK_URL
     value: "https://bombay-lcd.terra.dev"
-  - name: CHAIN_ID
+  - name: VUE_APP_CHAIN_ID
     value: "bombay-12"
-  - name: MARKETPLACE_ADDRESS
+  - name: VUE_APP_MARKETPLACE_ADDRESS
     value: "terra18yk3tzwkrte5jnmwuru3ht3tjxk7uysc7kksxy"
-  - name: GEN0_ADDRESS
+  - name: VUE_APP_GEN0_ADDRESS
     value: "terra1c58xptzpcwrz79qa50m67fr77zehyhfs0hpg7m"
-  - name: BACKEND_REST_API_ENDPOINT
+  - name: VUE_APP_BACKEND_REST_API_ENDPOINT
     value: "apis.insider.trapp.io"
 
 ingress:

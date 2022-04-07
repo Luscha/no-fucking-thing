@@ -1,0 +1,24 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch dev",
+            "cwd": "${workspaceFolder}/frontend",
+            "runtimeExecutable": "npm",
+            "runtimeArgs": [
+                "run-script",
+                "serve"
+            ],
+            "env": {
+                "VUE_APP_NETWORK_URL": "https://bombay-lcd.terra.dev",
+                "VUE_APP_CHAIN_ID": "bombay-12",
+                "VUE_APP_GEN0_ADDRESS": "terra1c58xptzpcwrz79qa50m67fr77zehyhfs0hpg7m",
+            }
+        }
+    ]
+}

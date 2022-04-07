@@ -25,8 +25,6 @@
         <HowItWork classname="col-lg-3" :title="SectionData.howItWorkData.title" :subtitle="SectionData.howItWorkData.content" gutterBottom="mb-3"></HowItWork>
         <!-- Category  -->
         <Category classname="section-space bg-gray"></Category>
-        <!-- Newsletter  -->
-        <Newsletter></Newsletter>
         <!-- Footer  -->
         <Footer classname="bg-dark on-dark"></Footer>
   </div><!-- end page-wrap -->

@@ -2,8 +2,10 @@
 
 # Set all environment variables required to run the ui.
 env:
-  - name: NEXT_PUBLIC_RESTAPI_ENDPOINT
-    value: https://crossrefs.animeshon.com/apis
+  - name: NETWORK_URL
+    value: https://bombay-lcd.terra.dev
+  - name: CHAIN_ID
+    value: bombay-12
 
 certificate:
   enabled: true

@@ -1,5 +1,5 @@
-import { LCDClient, MsgExecuteContract, Fee } from "@terra-money/terra.js";
-import { contractAdress } from "./address";
+import { MsgExecuteContract } from "@terra-money/terra.js";
+import { getLCD } from "./lcd"
 
 // ==== utils ====
 
@@ -7,24 +7,16 @@ const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const until = Date.now() + 1000 * 60 * 60;
 const untilInterval = Date.now() + 1000 * 60;
 
-export const exec = (wallet, contract, msg, coins = undefined, fee = new Fee(200000, { uluna: 10000 })) => {
-  return _exec(contractAdress(wallet.network.chainID, contract), msg, coins, fee)(wallet)
-}
-
-export const execRaw = (wallet, contract, msg, coins = undefined, fee = new Fee(200000, { uluna: 10000 })) => {
-  return _exec(contract, msg, coins, fee)(wallet)
+export const exec = (wallet, contract, msg, coins = undefined) => {
+  return _exec(contract, msg, coins)(wallet)
 }
 
 const _exec =
-  (contract, msg, coins = undefined, fee = new Fee(200000, { uluna: 10000 })) =>
+  (contract, msg, coins = undefined) =>
   async (wallet) => {
-    const lcd = new LCDClient({
-      URL: wallet.network.lcd,
-      chainID: wallet.network.chainID,
-    });
-    
+    const lcd = getLCD();
     const { result } = await wallet.post({
-      fee,
+      //fee,
       msgs: [
         new MsgExecuteContract(
           wallet.walletAddress,

@@ -2,6 +2,8 @@
 import { safeIpfsToUrl } from "@/utils/nft";
 import { parseOffering } from "@/utils/nft-offer";
 import * as query from '@/contract/query'
+import axios from 'axios';
+import { MARKETPLACE_ADDRESS } from '@/config'
 
 export class NftWrapper {
     contract = "";
@@ -28,9 +30,13 @@ export class NftWrapper {
 
     loadInfo = function(force) {
         this.loaded = true;
-        query.queryRaw(this.contract, { all_nft_info: {token_id: this.token_id} })
+        query.query(this.contract, { all_nft_info: {token_id: this.token_id} })
         .then(res => {
-            this.info = {...res.info, image: safeIpfsToUrl(res.info.image)}
+            console.log(res)
+            axios.get(safeIpfsToUrl(res.info.token_uri)).then(res => 
+            {
+                this.info = {...res.data, image: safeIpfsToUrl(res.data.image)}
+            })
 
             // Do not override offer seller
             if (!force && !this.owner.address) {
@@ -42,13 +48,13 @@ export class NftWrapper {
 
     loadCollection = function() {
         this.loaded = true;
-        query.queryRaw(this.contract, { contract_info: {} })
+        query.query(this.contract, { contract_info: {} })
         .then(res => {
             this.collection = res
         })
         .catch(err => console.log(err));
 
-        query.queryRaw(this.contract, { minter: {} })
+        query.query(this.contract, { minter: {} })
         .then(res => {
             this.minter = {address: res.minter}
         })
@@ -56,7 +62,7 @@ export class NftWrapper {
     }
 
     loadOffer = function() {
-        query.query("marketplace", { offering_by_nft: {
+        query.query(MARKETPLACE_ADDRESS, { offering_by_nft: {
             collection_contract: this.contract,
             token_id: this.token_id,
         } })

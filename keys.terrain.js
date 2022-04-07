@@ -16,5 +16,9 @@ module.exports = {
   //terra17lmam6zguazs5q5u6z5mmx76uj63gldnse2pdp
   customer: {
     mnemonic: "quality vacuum heart guard buzz spike sight swarm shove special gym robust assume sudden deposit grid alcohol choice devote leader tilt noodle tide penalty"
-  }
+  },
+  bombay: {
+    mnemonic:
+      "thank simple coyote whisper display walnut solid fruit genre pilot twenty average body submit rubber tape lumber angle interest gesture chunk bike next school",
+  },
 };

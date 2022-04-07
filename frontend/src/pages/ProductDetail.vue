@@ -151,9 +151,9 @@
 <script>
 import SectionData from '@/store/store.js'
 import { Modal } from 'bootstrap';
-import { Fee } from "@terra-money/terra.js";
 
-import { exec,execRaw} from '@/contract/execute';
+import { exec } from '@/contract/execute';
+import { MARKETPLACE_ADDRESS } from '@/config'
 
 import { trunc } from "@/utils/address";
 import { NftWrapper } from '@/models/nft-wrapper';
@@ -213,12 +213,8 @@ export default {
 
             const coins = {};
             coins[this.wrapper.offer.priceCanonical.denom] = this.wrapper.offer.priceCanonical.amount;
-            const fees = {};
-            if (this.wrapper.offer.priceCanonical.denom != "uluna") {
-                fees[this.wrapper.offer.priceCanonical.denom] = Math.trunc(parseInt(this.wrapper.offer.priceCanonical.amount)/1000);
-            }
 
-            exec(wallet, "marketplace", 
+            exec(wallet, MARKETPLACE_ADDRESS, 
                 { buy: 
                     {
                         offering_id: this.wrapper.offer.id, 
@@ -229,7 +225,6 @@ export default {
                     }
                 },
                 coins,
-                new Fee(200000, { uluna: 10000,  ...fees})
                 )
                 .then(res => {
                     console.log(res)
@@ -273,10 +268,10 @@ export default {
                 return;
             }
 
-            execRaw(wallet, this.contract, 
+            exec(wallet, this.contract, 
                 { 
                     send_nft: {
-                        contract: "terra1uq0haxdf5cgg7s76frd3rtnr0trzaazyy00jqf",
+                        contract: MARKETPLACE_ADDRESS,
                         token_id: this.id,
                         msg: Buffer.from(JSON.stringify({
                             list_price: {
@@ -287,7 +282,6 @@ export default {
                     }
                 },
                 {},
-                new Fee(200000, { uluna: 10000})
                 )
                 .then(res => {
                     console.log(res)

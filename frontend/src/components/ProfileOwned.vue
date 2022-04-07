@@ -24,6 +24,7 @@ import token from '@/mixins/token-owned';
 import { signMessage } from '@/utils/sign-message';
 import walletController from "@/mixins/walletController.js"
 import axios from 'axios';
+import { BACKEND_REST_API_ENDPOINT } from "@/config"
 
 export default {
   name: 'ProfileOwned',
@@ -73,7 +74,7 @@ export default {
 
       const message = await signMessage(wallet, {contractAddrs: this.importAddress})
 
-      const res = await axios.post((process.env.BACKEND_REST_API_ENDPOINT || 'http://localhost:3000') + "/collections", message);
+      const res = await axios.post(BACKEND_REST_API_ENDPOINT + "/collections", message);
       console.log(res)
 
       await this.loadContracts();

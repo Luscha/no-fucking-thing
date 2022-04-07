@@ -31,11 +31,11 @@
       },
       "instantiation": {
         "instantiateMsg": {
-          "name": "test2",
-          "symbol": "TS2",
+          "name": "test",
+          "symbol": "TST",
           "treasury": "terra1x46rqay4d3cssq8gxxvqz8xt6nwlz4td20k38v",
-          "max_tokens": 10,
-          "token_uri": "ipfs://test",
+          "max_tokens": 20,
+          "token_uri": "ipfs://QmcKKQ9FNMQdYCBf6xwMf3NzjJkxNG67s8DTdsfQknWGAZ",
           "minting_price_denom": "uusd",
           "minting_price_amount": 100000
         }

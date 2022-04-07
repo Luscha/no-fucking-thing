@@ -30,6 +30,7 @@
 <script>
 import {parseOffering} from '@/utils/nft-offer'
 import * as query from '@/contract/query'
+import { MARKETPLACE_ADDRESS } from '@/config'
 
 const LOAD_CHUNK = 20;
 
@@ -63,7 +64,7 @@ export default {
 
   mounted() {
     this.loading = true;
-    query.query("marketplace", { offerings: { limit: LOAD_CHUNK } })
+    query.query(MARKETPLACE_ADDRESS, { offerings: { limit: LOAD_CHUNK } })
     .then(res => {
       this.offerings = res.offerings.map(nft => (parseOffering(nft)));
       this.sections[this.tab-1].more = this.offerings.length == LOAD_CHUNK
@@ -79,7 +80,7 @@ export default {
         if (this.sections[this.tab-1].more && bottomOfWindow) {
           this.loading = true;
           if (this.tab == 1) {
-            query.query("marketplace", { offerings: { start_after: this.offerings[this.offerings.length-1].id, limit: LOAD_CHUNK } })
+            query.query(MARKETPLACE_ADDRESS, { offerings: { start_after: this.offerings[this.offerings.length-1].id, limit: LOAD_CHUNK } })
             .then(res => {
               this.offerings = this.offerings.concat(res.offerings.map(nft => (parseOffering(nft))));
               this.sections[this.tab-1].more = res.offerings == LOAD_CHUNK

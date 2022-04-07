@@ -158,6 +158,7 @@ pub fn execute_mint(
     let mut resp = Response::new()
     .add_attribute("action", "mint")
     .add_attribute("minter", info.sender)
+    .add_attribute("owner", msg.owner)
     .add_attribute("token_id", token_id.to_string());
 
     if !whitelisted {

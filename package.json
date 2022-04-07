@@ -4,8 +4,10 @@
   "description": "",
   "private": true,
   "scripts": {
-    "deploy:marketplace": "terrain deploy marketplace --signer=validator --set-signer-as-admin",
-    "deploy:gen0": "terrain deploy gen0 --signer=validator --set-signer-as-admin",
+    "deploy:marketplace_local": "terrain deploy marketplace --signer=validator --set-signer-as-admin",
+    "deploy:gen0_local": "terrain deploy gen0 --signer=validator --set-signer-as-admin",
+    "deploy:marketplace_test": "terrain deploy marketplace --signer=bombay --set-signer-as-admin --network testnet",
+    "deploy:gen0_test": "terrain deploy gen0 --signer=bombay --set-signer-as-admin --network testnet",
     "sync-refs": "terrain sync-refs --dest=./frontend/src/refs.terrain.json"
   },
   "dependencies": {

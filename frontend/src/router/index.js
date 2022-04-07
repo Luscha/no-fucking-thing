@@ -2,14 +2,14 @@ import { createWebHistory, createRouter } from "vue-router";
 
 const routes = [
   {
-    path: "/index",
-    name: "Index",
-    component: () => import('../pages/index.vue'),
-  },
-  {
     path: "/",
     name: "Home",
     component: () => import('../pages/Home-v2.vue'),
+  },
+  {
+    path: "/mint-gen0",
+    name: "Mint Gen0",
+    component: () => import('../pages/MintGen0.vue'),
   },
   {
     path: '/home-v2',

@@ -46,8 +46,8 @@
 </template>
 
 <script>
-import {exec} from '@/contract/execute';
-import { Fee } from "@terra-money/terra.js";
+import { exec } from '@/contract/execute';
+import { MARKETPLACE_ADDRESS } from '@/config'
 
 import { trunc } from "@/utils/address";
 import { NftWrapper } from '@/models/nft-wrapper';
@@ -77,10 +77,8 @@ export default {
           return;
       }          
 
-      exec(wallet, "marketplace", 
+      exec(wallet, MARKETPLACE_ADDRESS, 
         { withdraw_nft:  { offering_id: this.product.id } },
-        undefined,
-        new Fee(200000, { uluna: 10000 }),
       )
       .then(res => {
         console.log(res)

@@ -13,9 +13,23 @@
       }
     },
     "gen0": {
-      "codeId": "22",
+      "codeId": "3",
       "contractAddresses": {
-        "default": "terra1pmatkc0arpxkvf64frgcep5hnp5m8f5w40qg2k"
+        "default": "terra1sh36qn08g4cqg685cfzmyxqv2952q6r8gpczrt"
+      }
+    }
+  },
+  "testnet": {
+    "marketplace": {
+      "codeId": "60709",
+      "contractAddresses": {
+        "default": "terra18yk3tzwkrte5jnmwuru3ht3tjxk7uysc7kksxy"
+      }
+    },
+    "gen0": {
+      "codeId": "60715",
+      "contractAddresses": {
+        "default": "terra1c58xptzpcwrz79qa50m67fr77zehyhfs0hpg7m"
       }
     }
   }

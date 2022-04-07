@@ -1,9 +1,5 @@
 fullnameOverride: "no-fucking-thing-backend"
 
-env:
-  - name: DATABASE_URL
-    value: "file:/data/sqlite.db"
-
 init:
   enabled: true
   args: 

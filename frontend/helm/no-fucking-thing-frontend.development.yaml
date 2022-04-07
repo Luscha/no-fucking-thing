@@ -9,7 +9,7 @@ env:
   - name: GEN0_ADDRESS
     value: "terra1c58xptzpcwrz79qa50m67fr77zehyhfs0hpg7m"
   - name: BACKEND_REST_API_ENDPOINT
-    value: "apis.insider.waifu.chat"
+    value: "apis.insider.trapp.io"
 
 ingress:
   enabled: true
@@ -17,11 +17,11 @@ ingress:
     kubernetes.io/ingress.global-static-ip-name: "kubernetes-default-lb"
     networking.gke.io/managed-certificates: "no-fucking-thing-frontend-tls-cert"
   hosts:
-    - host: insider.waifu.chat
+    - host: insider.trapp.io
       paths:
         - path: /*
           pathType: ImplementationSpecific
 
 certificate:
   enabled: true
-  domains: [insider.waifu.chat]
+  domains: [insider.trapp.io]

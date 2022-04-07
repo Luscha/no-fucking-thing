@@ -4,7 +4,7 @@ ingress:
     kubernetes.io/ingress.global-static-ip-name: "kubernetes-development-backend-lb"
     networking.gke.io/managed-certificates: "no-fucking-thing-backend-tls-cert"
   hosts:
-    - host: apis.insider.waifu.chat
+    - host: apis.insider.trapp.io
       paths:
         - path: /*
           pathType: ImplementationSpecific
@@ -14,7 +14,9 @@ env:
     value: "https://bombay-lcd.terra.dev"
   - name: CHAIN_ID
     value: "bombay-12"
+  - name: DATABASE_URL
+    value: "file:/data/sqlite.db"
 
 certificate:
   enabled: true
-  domains: [apis.insider.waifu.chat]
+  domains: [apis.insider.trapp.io]

@@ -9,4 +9,4 @@ env:
 
 certificate:
   enabled: true
-  domains: [waifu.chat]
+  domains: [trapp.io]

@@ -11,6 +11,7 @@ export async function initController() {
   }
   
   const chainOptions = await getChainOptions();
+  console.log(chainOptions)
   
   if (instance) {
     return;

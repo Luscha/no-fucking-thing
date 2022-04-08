@@ -27,7 +27,7 @@
                         </div><!-- author-hero-conetent -->
                         <div class="hero-action-wrap d-flex align-items-center my-2">
                             <div v-if="me">
-                            <button class="btn btn-dark" v-on:click="Disconnect()">Disconnect</button>
+                            <button class="btn btn-dark" v-on:click="proxyDisconnect()">Disconnect</button>
                             </div>
                             <!-- <router-link v-if="me" :to="'/account'" class="btn btn-light">Edit Profile</router-link> -->
                             <!-- <div v-else: class="dropdown ms-3">
@@ -54,7 +54,7 @@ import walletController from "@/mixins/walletController.js"
 export default {
   name: 'ProfileHeader',
   mixins:[walletController],
-  
+
   props: {
       me: {
         type: Boolean,
@@ -71,6 +71,12 @@ export default {
     return {
       avatar: undefined,
       banner: undefined,
+    }
+  },
+
+  methods: {
+    proxyDisconnect() {
+      this.Disconnect();
     }
   },
 

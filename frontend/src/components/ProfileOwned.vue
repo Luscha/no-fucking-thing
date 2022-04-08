@@ -74,7 +74,7 @@ export default {
 
       const message = await signMessage(wallet, {contractAddrs: this.importAddress})
 
-      const res = await axios.post(BACKEND_REST_API_ENDPOINT + "/collections", message);
+      await axios.post(BACKEND_REST_API_ENDPOINT + "/collections", message);
 
       await this.loadContracts();
       this.loadOwned(this.address);

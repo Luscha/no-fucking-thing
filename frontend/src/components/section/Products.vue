@@ -80,8 +80,7 @@ export default {
       exec(wallet, MARKETPLACE_ADDRESS, 
         { withdraw_nft:  { offering_id: this.product.id } },
       )
-      .then(res => {
-        console.log(res)
+      .then(() => {
         this.$notify({
             title: 'Success!!',
             text: 'You successfully withdrawn ' + this.wrapper.info.name,

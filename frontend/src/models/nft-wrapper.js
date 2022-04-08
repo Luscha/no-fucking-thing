@@ -32,7 +32,6 @@ export class NftWrapper {
         this.loaded = true;
         query.query(this.contract, { all_nft_info: {token_id: this.token_id} })
         .then(res => {
-            console.log(res)
             axios.get(safeIpfsToUrl(res.info.token_uri)).then(res => 
             {
                 this.info = {...res.data, image: safeIpfsToUrl(res.data.image)}

@@ -3,7 +3,7 @@ ingress:
   annotations: 
     kubernetes.io/ingress.global-static-ip-name: "kubernetes-default-lb"
     networking.gke.io/managed-certificates: "no-fucking-thing-frontend-tls-cert"
-    networking.gke.io/RedirectToHttps: PERMANENT_REDIRECT
+    networking.gke.io/v1beta1.FrontendConfig: "frontend-config"
   hosts:
     - host: insider.trapp.io
       paths:

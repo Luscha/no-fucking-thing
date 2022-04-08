@@ -48,8 +48,13 @@
 </template>
 
 <script>
+
+import walletController from "@/mixins/walletController.js"
+
 export default {
   name: 'ProfileHeader',
+  mixins:[walletController],
+  
   props: {
       me: {
         type: Boolean,

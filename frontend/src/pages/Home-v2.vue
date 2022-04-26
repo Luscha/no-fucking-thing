@@ -7,34 +7,33 @@
           <!-- hero -->
           <div class="hero-wrap hero-wrap-2 section-space">
             <div class="container">
-                <div class="row flex-lg-row-reverse justify-content-between align-items-center">
-                    <div class="col-lg-5">
+                <div class="row flex-lg justify-content-between align-items-center">
+                    <div class="col-lg-4">
+                        <div class="hero-content pt-lg-0 pb-0 mt-lg-n4">
+                            <h1 class="hero-title hero-title-s1 mb-3">{{ strings.leftTitle }}</h1>
+                            <p class="hero-text mb-4 pb-1">{{ strings.leftContent }}</p>
+                            <!-- button group -->
+                            <ButtonGroup :btns="btnDataLeft" classname="hero-btns"></ButtonGroup>
+                        </div><!-- hero-content -->
+                    </div><!-- col-lg-6 -->
+                    <div class="col-lg-4">
+                        <img :src="`https://multiplayer.net-cdn.it/thumbs/images/2022/01/06/jinx-arcane-netflix-cosplay_jpg_1400x0_q85.jpg`" class="mb-3 card-img-top" alt="art image">
                         <!-- Featured Item Slider -->
                         <FeaturedItemSlider :featured="featuredExtended"></FeaturedItemSlider>
+                        <ButtonGroup :btns="btnDataCenter" classname="hero-btns"></ButtonGroup>
                     </div><!-- end col-lg-5 -->
-                    <div class="col-lg-6">
+                    <div class="col-lg-4">
                         <div class="hero-content pt-lg-0 pb-0 mt-lg-n4">
-                            <h1 class="hero-title hero-title-s1 mb-3">{{ SectionData.heroDataThree.title }}</h1>
-                            <p class="hero-text mb-4 pb-1">{{ SectionData.heroDataThree.content }}</p>
+                            <h1 class="hero-title hero-title-s1 mb-3">{{ strings.rightTitle }}</h1>
+                            <p class="hero-text mb-4 pb-1">{{ strings.rightContent }}</p>
                             <!-- button group -->
-                            <ButtonGroup :btns="btnDataFour" classname="hero-btns"></ButtonGroup>
+                            <ButtonGroup :btns="btnDataRight" classname="hero-btns"></ButtonGroup>
                         </div><!-- hero-content -->
                     </div><!-- col-lg-6 -->
                 </div><!-- end row -->
             </div><!-- .container-->
         </div><!-- end hero-wrap -->
         </header>
-        <section class="section-space trending-section bg-gray">
-            <div class="container">
-                <!-- section heading -->
-                <SectionHeading classname="text-center" :text="SectionData.productData.title" :content="SectionData.productData.content" isMargin="mb-3"></SectionHeading>
-                <!-- product -->
-                <ProductsContainer :products="offerings"></ProductsContainer>
-                <div class="text-center mt-4 mt-md-5">
-                    <ButtonLink :text="SectionData.productData.btnText" :link="SectionData.productData.btnLink" classname="btn-link btn-link-s1"></ButtonLink>
-                </div>
-            </div><!-- .container -->
-        </section><!-- trending-section -->
         <!-- HowItWork  -->
         <HowItWork classname="col-lg-3" gutterBottom="mb-3"></HowItWork>
         <!-- funFact  -->
@@ -57,23 +56,36 @@ export default {
     return {
       SectionData,
       offerings: [],
-      btnDataFour: [    
+      btnDataLeft: [    
         {
           btnClass: 'btn-lg btn-grad',
           title: 'Mint Gen0',
           path: 'mint-gen0'
         },
-        {
-          btnClass: 'btn-lg btn-outline-dark',
-          title: 'Learn More',
-          path: '/learn-more'
-        },
+      ],
+
+      btnDataCenter: [
         {
           btnClass: 'btn-lg btn-outline-dark',
           title: 'Litepaper',
           path: '/litepaper'
         }
       ],
+
+      btnDataRight: [
+        {
+          btnClass: 'btn-lg btn-outline-dark',
+          title: 'Learn More',
+          path: '/learn-more'
+        },
+      ],
+
+      strings: {
+        leftTitle: "Support the project:",
+        leftContent: "Buying the Gen0 you will be an active member of its growth and you will be rewarded with part of the future earnings",
+        rightTitle: "Our idea:",
+        rightContent: "If you are intereste in our project and its future development",
+      }
     }
   },
   

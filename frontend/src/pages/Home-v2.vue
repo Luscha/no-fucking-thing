@@ -17,10 +17,8 @@
                         </div><!-- hero-content -->
                     </div><!-- col-lg-6 -->
                     <div class="col-lg-4">
-                        <img :src="`https://multiplayer.net-cdn.it/thumbs/images/2022/01/06/jinx-arcane-netflix-cosplay_jpg_1400x0_q85.jpg`" class="mb-3 card-img-top" alt="art image">
                         <!-- Featured Item Slider -->
-                        <FeaturedItemSlider :featured="featuredExtended"></FeaturedItemSlider>
-                        <ButtonGroup :btns="btnDataCenter" classname="hero-btns"></ButtonGroup>
+                        <FeaturedItemSlider :featured="featured"></FeaturedItemSlider>
                     </div><!-- end col-lg-5 -->
                     <div class="col-lg-4">
                         <div class="hero-content pt-lg-0 pb-0 mt-lg-n4">
@@ -36,8 +34,6 @@
         </header>
         <!-- HowItWork  -->
         <HowItWork classname="col-lg-3" gutterBottom="mb-3"></HowItWork>
-        <!-- funFact  -->
-        <!-- <funFactSection :isBg="true" class="section-space" classname="col-lg-4 col-sm-6" :items="SectionData.funfactData.funfactList"></funFactSection> -->
         <!-- Footer  -->
         <Footer classname="bg-dark on-dark"></Footer>
   </div><!-- end page-wrap -->
@@ -46,25 +42,22 @@
 <script>
 // Import component data. You can change the data in the store to reflect in all component
 import SectionData from '@/store/store.js'
-import {parseOffering} from '@/utils/nft-offer'
+import { NftWrapper } from '@/models/nft-wrapper';
 import * as query from '@/contract/query'
-import { MARKETPLACE_ADDRESS } from '@/config'
+import { GEN0_ADDRESS } from '@/config'
 
 export default {
   name: 'Home-v2',
   data () {
     return {
       SectionData,
-      offerings: [],
+      featured: [],
       btnDataLeft: [    
         {
           btnClass: 'btn-lg btn-grad',
           title: 'Mint Gen0',
           path: 'mint-gen0'
         },
-      ],
-
-      btnDataCenter: [
         {
           btnClass: 'btn-lg btn-outline-dark',
           title: 'Litepaper',
@@ -78,20 +71,31 @@ export default {
           title: 'Learn More',
           path: '/learn-more'
         },
+        {
+          btnClass: 'btn-lg btn-outline-dark',
+          title: 'FAQ',
+          path: '/faq'
+        },
       ],
 
       strings: {
-        leftTitle: "Support the project:",
+        leftTitle: "Support the project",
         leftContent: "Buying the Gen0 you will be an active member of its growth and you will be rewarded with part of the future earnings",
-        rightTitle: "Our idea:",
-        rightContent: "If you are intereste in our project and its future development",
+        rightTitle: "Our idea",
+        rightContent: "If you are interested in our project and its future development",
       }
     }
   },
   
   mounted() {
-    query.query(MARKETPLACE_ADDRESS, { offerings: { limit: 4 } }).then(res => {
-      this.offerings = res.offerings.map(nft => (parseOffering(nft)));
+    query.query(GEN0_ADDRESS, { all_tokens: { start_after: "6", limit: 4 } }).then(res => {
+      
+      this.featured = res.tokens?.map(nft => (new NftWrapper(GEN0_ADDRESS, nft)));
+      for (let i = 0; i < this.featured.length; i++) {
+        this.featured[i].loadCollection();
+        this.featured[i].loadInfo(false);
+      }
+      console.log(this.featured)
     });
   }
 }

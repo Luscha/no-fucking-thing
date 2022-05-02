@@ -26,7 +26,7 @@ export default {
     return {
       // how It Work Data
       howItWorkData: {
-        title: "Mint, buy and sell or discover their unknown protential through a new way of investing",
+        title: "Mint, buy and sell Nfts or discover their unknown protential through a new way of investing",
         howItWorkList: [
           {
             id: 1,

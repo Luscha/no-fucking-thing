@@ -16,7 +16,6 @@
                         <div class="hero-content">
                             <h5 class="mb-3 text-uppercase hero-text">{{ data.subtitle }}</h5>
                             <h1 class="hero-title mb-4">{{ data.title }}</h1>
-                            <h6 class="mb-2 text-uppercase hero-text hero-text-s1 text-dark-gray">{{ data.cost }}</h6>
                             <div class="d-flex align-items-center mb-4">
                                 <h2 class="fs-7 me-3">{{ gen0Info.humanPrice }}</h2>
                                 <span class="fw-semibold">{{ data.remaining }} {{available}}</span>
@@ -75,9 +74,8 @@ export default {
     return {
       data: {
         image: "https://pbs.twimg.com/media/FPBzhwtXoAMJ7Pl?format=jpg&name=4096x4096",
-        subtitle: "Become a founder and get future rewards",
-        title: "NoFuckingThing Gen0 is out and is limited!",
-        cost: "One time price per NFT",
+        subtitle: "Support NoFancyThings and get future rewards",
+        title: "NoFancyThings Gen0 is out and is limited!",
         remaining: "Available Gen0 NFT:"
       },
       gen0Info: {},

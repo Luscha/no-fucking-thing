@@ -4,20 +4,20 @@
     :slides-per-view="1"
     :loop="true"
     :navigation="{ clickable: true }" class="swiper-button-s1">
-        <swiper-slide v-for="product in featured" :key="product.token_id">
+        <swiper-slide v-for="wrapper in featured" :key="wrapper.token_id">
             <div class="card">
-                <div v-if="product.image" class="card-image">
-                    <img :src="product.image" class="card-img-top" alt="art image">
+                <div v-if="wrapper.info?.image" class="card-image">
+                    <img :src="wrapper.info?.image" class="card-img-top" alt="art image">
                 </div>
                 <div class="card-body d-flex align-items-center">
                     <!-- <div class="avatar flex-shrink-0 me-2">
                         <img :src="product.avatar" class="card-img-top" alt="art image">
                     </div> -->
                     <div>
-                        <h5 class="card-title text-truncate mb-0">{{ product.name }}</h5>
+                        <h5 class="card-title text-truncate mb-0">{{ wrapper.info?.name }}</h5>
                         <div class="card-author d-flex align-items-center">
                             <span class="me-1 card-author-by">By</span>
-                            <router-link :to="'/profile/'+product.seller" class=" author-link">{{ trunc(product.seller, 20) }}</router-link>
+                            <router-link :to="'/profile/'+wrapper.owner.address" class=" author-link">{{ trunc(wrapper.owner.address, 20) }}</router-link>
                         </div><!-- end card-author -->
                     </div>
                 </div><!-- end card-body -->
@@ -26,8 +26,8 @@
                   :to="{
                       name: 'ProductDetail',
                       params: {
-                        id: product.token_id,
-                        contract: product.contractAddr
+                        id: wrapper.token_id,
+                        contract: wrapper.contract
                       }
                   }"
               >

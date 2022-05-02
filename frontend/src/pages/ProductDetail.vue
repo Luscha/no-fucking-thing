@@ -172,7 +172,7 @@ export default {
             modal: undefined,
             sellData: {
                 amount: 0,
-                coin: {label: 'LUNA', denom: 'uluna'}
+                coin: {label: 'UST', denom: 'uusd'}
             }
         }
     },

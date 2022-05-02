@@ -1,7 +1,7 @@
 <template>
     <div>
       <div v-if="me" class="row g-4">
-        <p class="col-md-6 col-sm-12 smaller mb-2">Not finding your NFT's? Try to add the contract address to our database in order to find information about them.</p>
+        <p class="col-md-6 col-sm-12 smaller mb-2">Not finding your NFT's? Try to add the contract address to our database in order to display them.</p>
         <div class="col-md-6 col-sm-12">
           <div :style="{display: 'flex'}">
             <input v-model="importAddress" type="text" class="form-control form-control-s1" placeholder="NFT contract address">

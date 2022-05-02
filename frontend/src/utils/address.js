@@ -1,4 +1,8 @@
 export function trunc(str, len) {
+    if (!str) {
+        return str;
+    }
+
     const min = 8+3+3;
     if (str.length <= len || len < min) {
         return str;

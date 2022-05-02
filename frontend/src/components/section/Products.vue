@@ -23,7 +23,7 @@
                     <span class="card-price-title">Price</span>
                     <span class="card-price-number">{{ product.price.amount }} {{ product.price.denom }}</span>
                 </div>
-                <button v-if="canWithdraw" @click="withdraw" class="btn btn-sm btn-dark">Withdraw</button>
+                <button v-if="canWithdraw" @click="withdraw" class="btn btn-sm btn-dark">Cancel Listing</button>
                 <!-- <div class="text-sm-end">
                     <span class="card-price-title">Current bid</span>
                     <span class="card-price-number">{{ product.priceTwo }} ETH</span>

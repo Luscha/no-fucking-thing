@@ -78,8 +78,9 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
+/*TODO FIX ME*/
 .modal-backdrop {
-  z-index: unset;
+  z-index: 4;
 }
 </style>

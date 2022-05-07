@@ -16,7 +16,7 @@
                             <ButtonGroup :btns="btnDataLeft" classname="hero-btns"></ButtonGroup>
                         </div><!-- hero-content -->
                     </div><!-- col-lg-6 -->
-                    <div class="col-lg-4">
+                    <div class="col-lg-4 mt-4">
                         <!-- Featured Item Slider -->
                         <FeaturedItemSlider :featured="featured"></FeaturedItemSlider>
                     </div><!-- end col-lg-5 -->

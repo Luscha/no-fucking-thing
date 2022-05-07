@@ -69,7 +69,7 @@ export default {
         {
           btnClass: 'btn-lg btn-outline-dark',
           title: 'Learn More',
-          path: '/learn-more'
+          path: 'https://medium.com/@nofancythings'
         },
         {
           btnClass: 'btn-lg btn-outline-dark',

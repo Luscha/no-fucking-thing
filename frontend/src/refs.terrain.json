@@ -18,5 +18,19 @@
         "default": "terra1sh36qn08g4cqg685cfzmyxqv2952q6r8gpczrt"
       }
     }
+  },
+  "testnet": {
+    "marketplace": {
+      "codeId": "60709",
+      "contractAddresses": {
+        "default": "terra18yk3tzwkrte5jnmwuru3ht3tjxk7uysc7kksxy"
+      }
+    },
+    "gen0": {
+      "codeId": "70756",
+      "contractAddresses": {
+        "default": "terra1x2vxf5a8dejmlnd8m76z00h9s7sv2lzgdtnfhk"
+      }
+    }
   }
 }

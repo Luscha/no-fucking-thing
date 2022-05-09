@@ -73,7 +73,7 @@ export default {
   data () {
     return {
       data: {
-        image: "https://pbs.twimg.com/media/FPBzhwtXoAMJ7Pl?format=jpg&name=4096x4096",
+        image: require('@/images/nft.png'),
         subtitle: "Support NoFancyThings and get future rewards",
         title: "NoFancyThings Gen0 is out and is limited!",
         remaining: "Available Gen0 NFT:"

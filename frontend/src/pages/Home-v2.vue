@@ -88,7 +88,7 @@ export default {
   },
   
   mounted() {
-    query.query(GEN0_ADDRESS, { all_tokens: { start_after: "6", limit: 4 } }).then(res => {
+    query.query(GEN0_ADDRESS, { all_tokens: { /*start_after: "6",*/ limit: 4 } }).then(res => {
       
       this.featured = res.tokens?.map(nft => (new NftWrapper(GEN0_ADDRESS, nft)));
       for (let i = 0; i < this.featured.length; i++) {

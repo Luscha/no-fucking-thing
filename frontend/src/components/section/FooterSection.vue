@@ -10,12 +10,12 @@
                             </div><!-- end footer-item -->
                         </div><!-- end col-lg-3 -->
                         <div class="col-lg-3">
-                            <ul class="styled-icon">
+                            <!-- <ul class="styled-icon">
                                 <li><a href="#"><em class="icon ni ni-twitter"></em></a></li>
                                 <li><a href="#"><em class="icon ni ni-facebook-f"></em></a></li>
                                 <li><a href="#"><em class="icon ni ni-instagram"></em></a></li>
                                 <li><a href="#"><em class="icon ni ni-pinterest"></em></a></li>
-                            </ul>
+                            </ul> -->
                         </div>
                     </div><!-- end row -->
                 </div>

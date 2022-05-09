@@ -5654,7 +5654,7 @@ let SectionData = {
   },
   // footer data
   footerData: {
-    content: "The world's first and largest digital marketplace for crypto collectibles and non-fungible tokens (NFTs).",
+    content: "Unlocking the full potential of your NFTs!",
     footerList: [
       {
         id: 1,
